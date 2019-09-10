@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EmpNS">
+    <resultMap id="EmpResultMap" type="Emp">
+        <id property="eid" column="eid"/>
+        <result property="name" column="name"/>
+        <result property="password" column="password"/>
+        <result property="phone" column="phone"/>
+        <result property="salary" column="salary"/>
+        <result property="note" column="note"/>
+        <result property="aflag" column="aflag"/>
+        <result property="sex" column="sex"/>
+        <result property="photo" column="photo"/>
+        <association property="dept" column="did" resultMap="DeptNS.DeptResultMap"/>
+    </resultMap>
+    <!--密码查询-->
+    <select id="findLogin" parameterType="Emp" resultMap="EmpResultMap">
+        select eid,name,password,aflag,photo,did from emp where eid=#{eid} and password=#{password}
+    </select>
+</mapper>

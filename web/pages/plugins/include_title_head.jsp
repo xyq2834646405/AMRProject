@@ -1,6 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://"
+            + request.getServerName() + ":" + request.getServerPort()
+            + path + "/";
+%>
 <header class="main-header">
-
 	<!-- Logo -->
 	<a href="pages/index.jsp" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
 		<span class="logo-mini"><b>A</b>MR</span> <!-- logo for regular state and mobile devices -->
@@ -19,18 +24,18 @@
 				<li class="dropdown user user-menu"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <img
 						src="upload/emp/nophoto.png" class="user-image" alt="User Image">
-						<span class="hidden-xs">李兴华</span>
+						<span class="hidden-xs">${emp.name}</span>
 				</a>
 					<ul class="dropdown-menu"> 
 						<!-- User image -->
-						<li class="user-header"><img src="upload/emp/nophoto.png"
+						<li class="user-header"><img src="upload/emp/${emp.photo}"
 							class="img-circle" alt="User Image">
-							</p></li>
+                        </li>
 						<!-- Menu Body -->
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="text-center">
-								<a href="#" class="btn btn-default btn-flat">系统注销</a>
+								<a href="<%=basePath%>logout.action" class="btn btn-default btn-flat">系统注销</a>
 							</div>
 						</li>
 					</ul></li>

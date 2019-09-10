@@ -26,6 +26,7 @@
         <property name="minIdle" value="${db.minPoolSize}"/>
         <property name="maxActive" value="${db.maxPoolSize}"/>
         <property name="maxWait" value="${db.maxIdleTime}"/>
+<!--        <property name="filters" value="stat,log4j"/>-->
     </bean>
     <!--transactionManager-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -40,6 +41,13 @@
     <mvc:annotation-driven/>
     <!--启动请求的servlet-->
     <mvc:default-servlet-handler/>
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*.action"/>
+            <bean class="com.xyq.interceptor.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
     <!--配置资源-->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">

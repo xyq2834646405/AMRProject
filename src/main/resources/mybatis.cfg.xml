@@ -3,7 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <!--开启二级缓存-->
     <settings>
         <setting name="cacheEnabled" value="true"/>
     </settings>
+    <!--定义别名-->
+    <typeAliases>
+        <typeAlias type="com.xyq.vo.Emp" alias="Emp"/>
+        <typeAlias type="com.xyq.vo.Dept" alias="Dept"/>
+        <typeAlias type="com.xyq.vo.Groups" alias="Groups"/>
+        <typeAlias type="com.xyq.vo.Action" alias="Action"/>
+    </typeAliases>
+    <!--读取mapping-->
+    <mappers>
+        <mapper resource="com/xyq/vo/mapping/Emp.xml"/>
+        <mapper resource="com/xyq/vo/mapping/Dept.xml"/>
+        <mapper resource="com/xyq/vo/mapping/Groups.xml"/>
+        <mapper resource="com/xyq/vo/mapping/Action.xml"/>
+    </mappers>
 </configuration>

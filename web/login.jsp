@@ -4,7 +4,7 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
-	String loginUrl = basePath + "LoginAction_login.action" ;
+	String loginUrl = basePath + "login.action" ;
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -32,17 +32,17 @@
 						</div>
 						<div class="form-bottom">
 							<form role="form" action="<%=loginUrl%>" method="post" class="form-horizontal" id="myform">
-								<div class="form-group" id="emp.eidDiv">
+								<div class="form-group" id="eidDiv">
 									<div class="col-md-12">
 										<!-- 定义表单输入组件 -->
-										<input type="text" id="emp.eid" name="emp.eid" class="form-control"
+										<input type="text" id="eid" name="eid" class="form-control"
 											placeholder="请输入雇员编号...">
 									</div>
 								</div>
-								<div class="form-group" id="emp.passwordDiv">
+								<div class="form-group" id="passwordDiv">
 									<div class="col-md-12">
 										<!-- 定义表单输入组件 -->
-										<input type="password" id="emp.password" name="emp.password" class="form-control"
+										<input type="password" id="password" name="password" class="form-control"
 											placeholder="请输入登录密码...">
 									</div>
 								</div>
