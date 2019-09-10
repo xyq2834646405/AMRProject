@@ -31,7 +31,7 @@
                 </a>
                     <ul class="treeview-menu">
                         <c:forEach items="${gup.allActions}" var="act">
-                            <li><a href="${act.url}"><i class="fa fa-circle-o"></i>${act.title}</a></li>
+                            <li><a href="<%=basePath%>${act.url}"><i class="fa fa-circle-o"></i>${act.title}</a></li>
                         </c:forEach>
                     </ul>
                 </li>

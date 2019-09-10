@@ -1,6 +1,7 @@
 package com.xyq.action;
 
 import com.xyq.action.abs.AbstractAction;
+import com.xyq.action.adapter.AbstractActionAdapter;
 import com.xyq.service.IEmpService;
 import com.xyq.util.MD5Code;
 import com.xyq.vo.Emp;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * @create 2019-09-09 15:34
  */
 @Controller
-public class LoginAction  extends AbstractAction {
+public class LoginAction  extends AbstractActionAdapter {
     @Autowired
     private IEmpService empService;
 
@@ -45,9 +46,5 @@ public class LoginAction  extends AbstractAction {
             e.printStackTrace();
         }
         return mav;
-    }
-
-    public String getFlag() {
-        return null;
     }
 }

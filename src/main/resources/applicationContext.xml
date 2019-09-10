@@ -26,7 +26,6 @@
         <property name="minIdle" value="${db.minPoolSize}"/>
         <property name="maxActive" value="${db.maxPoolSize}"/>
         <property name="maxWait" value="${db.maxIdleTime}"/>
-<!--        <property name="filters" value="stat,log4j"/>-->
     </bean>
     <!--transactionManager-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -86,4 +85,18 @@
         <aop:pointcut id="txPointcut" expression="execution(* com.xyq.service.impl.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
     </aop:config>
+    <!--文件上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="5242880"/>
+        <property name="maxInMemorySize" value="2097152"/>
+        <property name="resolveLazily" value="true"/>
+    </bean>
+    <!--异常跳转定义-->
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">/error.jsp</prop>
+            </props>
+        </property>
+    </bean>
 </beans>

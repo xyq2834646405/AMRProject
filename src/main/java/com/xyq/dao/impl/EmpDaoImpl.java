@@ -27,7 +27,7 @@ public class EmpDaoImpl extends AbstractDao implements IEmpDao {
     }
 
     public boolean doCreate(Emp vo) throws Exception {
-        return false;
+        return getSession().insert("EmpNS.doCreate",vo)>0;
     }
 
     public boolean doUpdate(Emp vo) throws Exception {

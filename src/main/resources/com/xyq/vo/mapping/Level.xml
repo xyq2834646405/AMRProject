@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LevelNS">
+    <resultMap id="LevelResultMap" type="Level">
+        <id property="lid" column="lid"/>
+        <result property="title" column="title"/>
+        <result property="losal" column="losal"/>
+        <result property="hisal" column="hisal"/>
+    </resultMap>
+    <!--查询全部level数据-->
+    <select id="findAll" resultMap="LevelResultMap">
+        select lid,title,losal,hisal from level
+    </select>
+</mapper>

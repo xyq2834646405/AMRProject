@@ -7,17 +7,17 @@ import java.io.Serializable;
  * @create 2019-09-09 21:13
  */
 public class Action implements Serializable {
-    private int actid;
+    private Integer actid;
     private Groups groups;
     private String title;
     private String url;
-    private int sflag;
+    private Integer sflag;
 
-    public int getActid() {
+    public Integer getActid() {
         return actid;
     }
 
-    public void setActid(int actid) {
+    public void setActid(Integer actid) {
         this.actid = actid;
     }
 
@@ -37,11 +37,11 @@ public class Action implements Serializable {
         this.url = url;
     }
 
-    public int getSflag() {
+    public Integer getSflag() {
         return sflag;
     }
 
-    public void setSflag(int sflag) {
+    public void setSflag(Integer sflag) {
         this.sflag = sflag;
     }
 

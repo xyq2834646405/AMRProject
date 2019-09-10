@@ -12,10 +12,16 @@
         <result property="aflag" column="aflag"/>
         <result property="sex" column="sex"/>
         <result property="photo" column="photo"/>
+        <result property="heid" column="heid"/>
         <association property="dept" column="did" resultMap="DeptNS.DeptResultMap"/>
+        <association property="level" column="lid" resultMap="LevelNS.LevelResultMap"/>
     </resultMap>
     <!--密码查询-->
     <select id="findLogin" parameterType="Emp" resultMap="EmpResultMap">
         select eid,name,password,aflag,photo,did from emp where eid=#{eid} and password=#{password}
     </select>
+    <!--增加管理员-->
+    <insert id="doCreate" parameterType="Emp">
+        insert into emp(eid,did,lid,heid,name,password,phone,salary,note,aflag,sex,photo) values (#{eid},#{dept.did},#{level.lid},#{heid},#{name},#{password},#{phone},#{salary},#{note},#{aflag},#{sex},#{photo})
+    </insert>
 </mapper>

@@ -17,6 +17,8 @@ public class Emp implements Serializable {
     private String sex;
     private String photo;
     private Dept dept;
+    private Level level;
+    private Integer heid;
 
     public Integer getEid() {
         return eid;
@@ -96,5 +98,21 @@ public class Emp implements Serializable {
 
     public void setDept(Dept dept) {
         this.dept = dept;
+    }
+
+    public Integer getHeid() {
+        return heid;
+    }
+
+    public void setHeid(Integer heid) {
+        this.heid = heid;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
 }

@@ -59,7 +59,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="E:/knowledge/协同办公系统ssh/COProject" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/com/xyq/vo/mapping" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -74,8 +74,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.xyq.dao.impl" />
       <recent name="com.xyq.service.impl" />
+      <recent name="com.xyq.dao.impl" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\programming\workspace\AMRProject\src\main\resources\com\xyq\vo\mapping" />
@@ -190,7 +190,8 @@
       <workItem from="1568007887515" duration="1148000" />
       <workItem from="1568010697962" duration="18124000" />
       <workItem from="1568046709484" duration="3311000" />
-      <workItem from="1568073316373" duration="1104000" />
+      <workItem from="1568073316373" duration="5229000" />
+      <workItem from="1568116732704" duration="9220000" />
     </task>
     <servers />
   </component>

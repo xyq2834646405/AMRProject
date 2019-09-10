@@ -1,15 +1,22 @@
 package com.xyq.action.abs;
 
+import com.xyq.vo.Action;
+import com.xyq.vo.Emp;
+import com.xyq.vo.Groups;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
 import java.util.Locale;
+import java.util.UUID;
 
 /**
  * @Author xyq
@@ -76,8 +83,134 @@ public abstract class AbstractAction {
     }
 
     /**
+     * 验证在session中是否存在有制定的权限数据
+     * @param actid 权限编号,唯一的,不可变
+     * @param request
+     * @return
+     */
+    public boolean isAuth(int actid,HttpServletRequest request){
+        Emp emp = getEmp(request);
+        Iterator<Groups> iterGup = emp.getDept().getAllGroups().iterator();
+        while (iterGup.hasNext()){
+            Groups gup = iterGup.next();
+            Iterator<Action> iterAct = gup.getAllActions().iterator();
+            while(iterAct.hasNext()){
+                Action act = iterAct.next();
+                if (act.getActid().equals(actid)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 取得session中出现的登录操作
+     * @param request
+     * @return
+     */
+    public Emp getEmp(HttpServletRequest request){
+        return (Emp) request.getSession().getAttribute("emp");
+    }
+
+    /**
+     * 取得session中的雇员编号
+     * @param request
+     * @return
+     */
+    public Integer getEid(HttpServletRequest request){
+        return getEmp(request).getEid();
+    }
+
+    /**
+     * 文件的爆粗才能操作
+     * @param file 包含所有的文件信息
+     * @param request 取得绝对路径
+     * @param fileName 文件名称
+     * @return
+     */
+    public boolean saveUpdateFile(MultipartFile file,HttpServletRequest request,String fileName){
+        String filePath = request.getServletContext().getRealPath(this.getSaveFileDiv())+fileName;
+        if(file==null){
+            System.out.println("*********************************88");
+        }
+        if (file.getSize() > 0) {
+            OutputStream output = null;
+            InputStream input = null;
+            try {
+                output = new FileOutputStream(filePath);
+                input = file.getInputStream();
+                byte data[] = new byte[2048];
+                int temp = 0;
+                while ((temp = input.read(data)) != -1) {
+                    output.write(data, 0, temp);
+                }
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            } finally {
+                if (output != null) {
+                    try {
+                        output.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (input != null) {
+                    try {
+                        input.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 取得文件名称,如果没有上传,则返回的是"nophoto.png"文件
+     * @param file
+     * @return
+     */
+    public String createSingleFileName(MultipartFile file){
+        if (file == null) {
+            return "nophoto.png";
+        }
+        if (file.getSize() <= 0) {
+            return "nophoto.png";
+        }
+        return UUID.randomUUID() + "." + this.getFileExt(file.getContentType());
+    }
+
+    /**
+     * 取得文件的后缀
+     * @param contentType
+     * @return
+     */
+    public String getFileExt(String contentType){
+        if ("image/bmp".equals(contentType)) {
+            return "bmp";
+        } else if ("image/gif".equals(contentType)) {
+            return "gif";
+        } else if ("image/jpeg".equals(contentType)) {
+            return "jpg";
+        } else if ("image/png".equals(contentType)) {
+            return "png";
+        }
+        return null;
+    }
+
+    /**
      * 返回crud除操作时的执行标记
      * @return
      */
     public abstract String getFlag();
+
+    /**
+     * 取得上传路径
+     * @return
+     */
+    public abstract String getSaveFileDiv();
 }
