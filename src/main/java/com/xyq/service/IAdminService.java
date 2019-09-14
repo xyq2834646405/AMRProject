@@ -23,5 +23,26 @@ public interface IAdminService {
      * @return 增加成功返回true,否则返回false
      * @throws Exception
      */
-    public boolean add(Emp vo) throws Exception;
+    public boolean add(Emp vo,int eid) throws Exception;
+
+    /**
+     * 检测雇员编号是否存在
+     * @param eid 雇员编号
+     * @return 存在返回true,否则返回false
+     * @throws Exception
+     */
+    public boolean checkEid(int eid) throws Exception;
+
+    /**
+     * 实现所有管理员数据的列表显示处理操作
+     * @param column
+     * @param keyWord
+     * @param currentPage
+     * @param lineSize
+     * @return 返回集合包括如下内容:<br>
+     *     <li>key=allEmps、value=IAdminDao.findAllAdmin()</li>
+     *     <li>key=EmpCount、value=IAdminDao.findAllAdminCount()</li>
+     * @throws Exception
+     */
+    public Map<String,Object> list(String column,String keyWord,int currentPage,int lineSize) throws Exception;
 }

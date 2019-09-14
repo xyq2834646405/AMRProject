@@ -13,4 +13,7 @@
     <select id="findAllByGroups" parameterType="Integer" resultMap="ActionResultMap">
         select actid,gid,title,url,sflag from action where gid=#{pgid}
     </select>
+    <select id="findByIdAndDept" parameterType="java.util.Map" resultMap="ActionResultMap">
+        select actid,gid,title,url,sflag from action where actid=#{actid} and gid in (select gid from dept_groups where did=#{did})
+    </select>
 </mapper>

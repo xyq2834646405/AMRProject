@@ -73,9 +73,8 @@
     <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.xyq.service.impl" />
-      <recent name="com.xyq.dao.impl" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\programming\workspace\AMRProject\src\main\resources\com\xyq\vo\mapping" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\programming\workspace\AMRProject\src\main\resources\com\xyq\vo\mapping" />
@@ -84,8 +83,9 @@
       <recent name="D:\programming\workspace\AMRProject\src\main\resources\com.xyq.vo.mapping" />
       <recent name="D:\programming\workspace\AMRProject\web" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\programming\workspace\AMRProject\src\main\resources\com\xyq\vo\mapping" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.xyq.service.impl" />
+      <recent name="com.xyq.dao.impl" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -192,6 +192,11 @@
       <workItem from="1568046709484" duration="3311000" />
       <workItem from="1568073316373" duration="5229000" />
       <workItem from="1568116732704" duration="9220000" />
+      <workItem from="1568191631423" duration="672000" />
+      <workItem from="1568221206463" duration="624000" />
+      <workItem from="1568269211345" duration="3357000" />
+      <workItem from="1568301880170" duration="2595000" />
+      <workItem from="1568474099384" duration="7642000" />
     </task>
     <servers />
   </component>

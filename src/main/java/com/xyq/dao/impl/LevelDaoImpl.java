@@ -27,7 +27,7 @@ public class LevelDaoImpl extends AbstractDao implements ILevelDao {
     }
 
     public Level findById(Integer id) throws Exception {
-        return null;
+        return getSession().selectOne("LevelNS.findById",id);
     }
 
     public List<Level> findAll() throws Exception {

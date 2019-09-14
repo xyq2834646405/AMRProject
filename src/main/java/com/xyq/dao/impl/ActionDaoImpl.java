@@ -5,7 +5,9 @@ import com.xyq.dao.abs.AbstractDao;
 import com.xyq.vo.Action;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -16,6 +18,13 @@ import java.util.Set;
 public class ActionDaoImpl extends AbstractDao implements IActionDao {
     public List<Action> findAllByGroups(Integer gid) throws Exception {
         return getSession().selectList("ActionNS.findAllByGroups",gid);
+    }
+
+    public Action findByIdAndDept(Integer did, Integer actid) throws Exception {
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("did",did);
+        map.put("actid",actid);
+        return getSession().selectOne("ActionNS.findByIdAndDept",map);
     }
 
     public boolean doCreate(Action vo) throws Exception {

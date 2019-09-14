@@ -12,4 +12,8 @@
     <select id="findAll" resultMap="LevelResultMap">
         select lid,title,losal,hisal from level
     </select>
+    <!--查询一个level数据-->
+    <select id="findById" resultMap="LevelResultMap" parameterType="int">
+        select lid,title,losal,hisal from level where lid=#{lid}
+    </select>
 </mapper>

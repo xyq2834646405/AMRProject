@@ -77,6 +77,21 @@
 										<!-- 定义表单错误提示显示元素 -->
 										<div class="col-md-4" id="phoneMsg"></div>
 									</div>
+                                    <div class="form-group" id="sexDiv">
+                                        <!-- 定义表单提示文字 -->
+                                        <label class="col-md-3 control-label" for="sex">雇员性别：</label>
+                                        <div class="col-md-5">
+                                            <div class="radio-inline">
+                                                <label><input type="radio" name="sex" id="sex" value="男" checked>男</label>
+                                            </div>
+                                            <div class="radio-inline">
+                                                <label><input type="radio" name="sex" id="sex" value="女">女</label>
+                                            </div>
+                                        </div>
+                                        <!-- 定义表单错误提示显示元素 -->
+                                        <div class="col-md-4" id="sexMsg"></div>
+                                    </div>
+
 									<div class="form-group" id="level.lid">
 										<!-- 定义表单提示文字 -->
 										<label class="col-md-3 control-label" for="level.lid">员工级别：</label>

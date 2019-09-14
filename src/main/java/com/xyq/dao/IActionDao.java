@@ -16,4 +16,13 @@ public interface IActionDao extends IDao<Integer, Action> {
      * @throws Exception
      */
     public List<Action> findAllByGroups(Integer gid) throws Exception;
+
+    /**
+     * 根据部门与权限查询是否有指定的权限数据
+     * @param did 部门id
+     * @param actid 权限id
+     * @return
+     * @throws Exception
+     */
+    public Action findByIdAndDept(Integer did,Integer actid) throws Exception;
 }

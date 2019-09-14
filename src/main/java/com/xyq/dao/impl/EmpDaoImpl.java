@@ -26,6 +26,14 @@ public class EmpDaoImpl extends AbstractDao implements IEmpDao {
         return false;
     }
 
+    public List<Emp> findAllAdmin(String column, String keyWord, Integer currentPage, Integer lineSize) throws Exception {
+        return listHandle(column,keyWord,currentPage,lineSize,"EmpNS.findAllAdmin");
+    }
+
+    public Integer getAllAdminCount(String column, String keyWord) throws Exception {
+        return countHandle(column,keyWord,"EmpNS.findAllAdminCount");
+    }
+
     public boolean doCreate(Emp vo) throws Exception {
         return getSession().insert("EmpNS.doCreate",vo)>0;
     }
@@ -39,7 +47,7 @@ public class EmpDaoImpl extends AbstractDao implements IEmpDao {
     }
 
     public Emp findById(Integer id) throws Exception {
-        return null;
+        return getSession().selectOne("EmpNS.findById",id);
     }
 
     public List<Emp> findAll() throws Exception {

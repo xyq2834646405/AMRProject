@@ -1,5 +1,6 @@
 package com.xyq.action.abs;
 
+import com.xyq.util.SplitUtil;
 import com.xyq.vo.Action;
 import com.xyq.vo.Emp;
 import com.xyq.vo.Groups;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
@@ -203,6 +205,36 @@ public abstract class AbstractAction {
     }
 
     /**
+     * 处理分页设置的数据
+     * @param request
+     * @param split
+     */
+    public void handleSplit(HttpServletRequest request, SplitUtil split){
+        split.setCp(request.getParameter("cp"));
+        split.setLs(request.getParameter("ls"));
+        split.setKw(request.getParameter("kw"));
+        split.setCol(request.getParameter("col"));
+        request.setAttribute("currentPage",split.getCurrentPage());
+        request.setAttribute("lineSize",split.getLineSize());
+        request.setAttribute("column",split.getColumn());
+        request.setAttribute("keyWord",split.getKeyWord());
+        request.setAttribute("columnData",getColumnData());
+    }
+
+    /**
+     * 实现数据的输出操作
+     * @param response
+     * @param obj
+     */
+    public void print(HttpServletResponse response,Object obj){
+        try {
+            response.getWriter().print(obj);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 返回crud除操作时的执行标记
      * @return
      */
@@ -213,4 +245,16 @@ public abstract class AbstractAction {
      * @return
      */
     public abstract String getSaveFileDiv();
+
+    /**
+     * 得到分页默认列
+     * @return
+     */
+    public abstract String getDefaultColumn();
+
+    /**
+     * 实现页面的模糊查询列表显示,格式"标签:字段|标签:字段"
+     * @return
+     */
+    public abstract String getColumnData();
 }

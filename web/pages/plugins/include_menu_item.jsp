@@ -31,7 +31,9 @@
                 </a>
                     <ul class="treeview-menu">
                         <c:forEach items="${gup.allActions}" var="act">
-                            <li><a href="<%=basePath%>${act.url}"><i class="fa fa-circle-o"></i>${act.title}</a></li>
+                            <c:if test="${act.sflag==1}">
+                                <li><a href="<%=basePath%>${act.url}"><i class="fa fa-circle-o"></i>${act.title}</a></li>
+                            </c:if>
                         </c:forEach>
                     </ul>
                 </li>

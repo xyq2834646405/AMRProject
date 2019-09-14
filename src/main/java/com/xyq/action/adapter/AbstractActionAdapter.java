@@ -14,4 +14,12 @@ public abstract class AbstractActionAdapter extends AbstractAction {
     public String getSaveFileDiv() {
         return null;
     }
+
+    public String getDefaultColumn() {
+        return null;
+    }
+
+    public String getColumnData() {
+        return null;
+    }
 }
