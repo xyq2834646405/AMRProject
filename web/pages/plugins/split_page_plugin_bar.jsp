@@ -6,7 +6,7 @@
 <%
 	int currentPage = 1 ;
 	int lineSize = 5 ;
-	String url = (String)request.getAttribute("url") ;
+	String url = request.getContextPath()+(String)request.getAttribute("url") ;
 	int pageSize = 0 ;	// 保存总页数，通过计算得来
 	int seed = 3 ;	// 种子数
 	int allRecorders = 0 ;	// 保存总记录数

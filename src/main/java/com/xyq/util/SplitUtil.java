@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class SplitUtil {
     private int cp = 1;
-    private int ls = 10;
+    private int ls = 5;
     private String col;
     private String kw;
     private AbstractAction action;
@@ -41,7 +41,7 @@ public class SplitUtil {
 
     public void setKw(String kw){
         if ("".equals(kw)){
-            this.kw=null;
+            this.kw="";
         }else {
             this.kw=kw;
         }
@@ -60,7 +60,11 @@ public class SplitUtil {
     }
 
     public String getKeyWord() {
-        return kw;
+        if(kw==null){
+            return "";
+        }else {
+            return kw;
+        }
     }
 
     public void setAttribute(HttpServletRequest request,Object allRecorders,String url){

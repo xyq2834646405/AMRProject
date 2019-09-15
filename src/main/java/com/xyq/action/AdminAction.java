@@ -84,7 +84,7 @@ public class AdminAction extends AbstractActionAdapter {
         SplitUtil split = new SplitUtil(this);
         handleSplit(request,split);
         try {
-            Map<String, Object> map = adminService.list(split.getColumn(), split.getKeyWord(), split.getCurrentPage(), split.getLineSize());
+            Map<String, Object> map = adminService.list(split.getColumn(), "%"+split.getKeyWord()+"%", split.getCurrentPage(), split.getLineSize());
             mav.addObject("allEmps",map.get("allEmps"));
             split.setAttribute(request,map.get("EmpCount"),"admin.list.action");
         } catch (Exception e) {

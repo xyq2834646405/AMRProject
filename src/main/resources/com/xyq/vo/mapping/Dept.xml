@@ -9,4 +9,12 @@
         <collection property="allEmps" javaType="java.util.List" ofType="Emp"/>
         <collection property="allGroups" javaType="java.util.List" ofType="Groups"/>
     </resultMap>
+    <!--查询所有部门列表-->
+    <select id="findAll" resultMap="DeptResultMap">
+        select did,title,sflag from dept;
+    </select>
+    <!--修改部门名称-->
+    <update id="doUpdate"  parameterType="Dept">
+        update dept set title=#{title} where did=#{did}
+    </update>
 </mapper>
