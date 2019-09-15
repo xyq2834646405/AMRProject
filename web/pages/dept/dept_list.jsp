@@ -39,7 +39,7 @@
                                     <tr>
                                         <td><input type="text" name="title-${dept.did}" id="title-${dept.did}" value="${dept.title}" class="form-control"></td>
                                         <td><button class="btn btn-info" id="editBtn-${dept.did}"><span class="fa fa-pencil-square"></span> 修改</button></td>
-                                        <td><a class="btn btn-warning" href="pages/groups/groups_list.jsp">查看权限</a></td>
+                                        <td><a class="btn btn-warning" href="pages/groups/list.action?did=${dept.did}">查看权限</a></td>
                                     </tr>
                                 </c:forEach>
 							</table>

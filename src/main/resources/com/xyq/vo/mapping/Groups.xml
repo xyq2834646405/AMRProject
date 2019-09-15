@@ -10,7 +10,7 @@
         <collection property="allDepts" javaType="java.util.List" ofType="Dept"/>
     </resultMap>
     <!--根据部门查询对应的权限组-->
-    <select id="findAllByDept" parameterType="Integer" resultMap="GroupsResultMap">
+    <select id="findAllByDept" parameterType="int" resultMap="GroupsResultMap">
         select gid,title,type from groups where gid in(select gid from dept_groups where did=#{pdid})
     </select>
 </mapper>

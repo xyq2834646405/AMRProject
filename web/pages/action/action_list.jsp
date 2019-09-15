@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -34,22 +35,12 @@
 									<th>名称</th>
 									<th>访问路径</th>
 								</tr>
-								<tr>
-									<td>权限组列表</td>
-									<td>/pages/dept/GroupsAction_list.action</td>
-								</tr>
-								<tr>
-									<td>权限列表</td>
-									<td>/pages/dept/ActionAction_list.action</td>
-								</tr>
-								<tr>
-									<td>增加管理员</td>
-									<td>/pages/dept/AdminAction_addPre.action</td>
-								</tr>
-								<tr>
-									<td>管理员列表</td>
-									<td>/pages/dept/AdminAction_list.action</td>
-								</tr>
+                                <c:forEach items="${allActions}" var="act">
+                                    <tr>
+                                        <td>${act.title}</td>
+                                        <td>${act.url}</td>
+                                    </tr>
+                                </c:forEach>
 							</table>
 							<jsp:include page="/pages/plugins/include_alert.jsp"/> 
 						</div>
