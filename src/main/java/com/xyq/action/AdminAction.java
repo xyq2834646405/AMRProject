@@ -81,25 +81,27 @@ public class AdminAction extends AbstractActionAdapter {
     @RequestMapping("list")
     public ModelAndView list(HttpServletRequest request){
         ModelAndView mav = new ModelAndView();
-        SplitUtil split = new SplitUtil(this);
-        handleSplit(request,split);
-        try {
-            Map<String, Object> map = adminService.list(split.getColumn(), "%"+split.getKeyWord()+"%", split.getCurrentPage(), split.getLineSize());
-            mav.addObject("allEmps",map.get("allEmps"));
-            split.setAttribute(request,map.get("EmpCount"),"admin.list.action");
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (isAuth(3,request)) {
+            SplitUtil split = new SplitUtil(this);
+            handleSplit(request,split);
+            try {
+                Map<String, Object> map = adminService.list(getEid(request),split.getColumn(), "%"+split.getKeyWord()+"%", split.getCurrentPage(), split.getLineSize());
+                mav.addObject("allEmps",map.get("allEmps"));
+                split.setAttribute(request,map.get("EmpCount"),"admin.list.action");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            mav.setViewName(getMsg("admin.list.page"));
+        }else{
+            mav.setViewName(getMsg("errors.page"));
         }
-        mav.setViewName(getMsg("admin.list.page"));
         return mav;
     }
 
-    @Override
     public String getFlag() {
         return "管理员";
     }
 
-    @Override
     public String getSaveFileDiv() {
         return "/upload/emp/";
     }

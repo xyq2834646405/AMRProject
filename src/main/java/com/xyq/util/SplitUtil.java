@@ -40,7 +40,7 @@ public class SplitUtil {
     }
 
     public void setKw(String kw){
-        if ("".equals(kw)){
+        if (kw==null||"".equals(kw)){
             this.kw="";
         }else {
             this.kw=kw;
@@ -60,11 +60,7 @@ public class SplitUtil {
     }
 
     public String getKeyWord() {
-        if(kw==null){
-            return "";
-        }else {
-            return kw;
-        }
+        return kw;
     }
 
     public void setAttribute(HttpServletRequest request,Object allRecorders,String url){

@@ -36,4 +36,24 @@ public interface IEmpDao extends IDao<Integer, Emp> {
      * @throws Exception
      */
     public Integer getAllAdminCount(String column,String keyWord) throws Exception;
+
+    /**
+     * 查询所有雇员数据
+     * @param column
+     * @param keyWord
+     * @param currentPage
+     * @param lineSize
+     * @return
+     * @throws Exception
+     */
+    public List<Emp> findAllEmp(String column,String keyWord,Integer currentPage,Integer lineSize) throws Exception;
+
+    /**
+     * 查询所有雇员数量
+     * @param column
+     * @param keyWord
+     * @return
+     * @throws Exception
+     */
+    public Integer getAllEmpCount(String column,String keyWord) throws Exception;
 }

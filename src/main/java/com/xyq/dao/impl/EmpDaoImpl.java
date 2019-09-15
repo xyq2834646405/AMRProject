@@ -34,12 +34,20 @@ public class EmpDaoImpl extends AbstractDao implements IEmpDao {
         return countHandle(column,keyWord,"EmpNS.findAllAdminCount");
     }
 
+    public List<Emp> findAllEmp(String column, String keyWord, Integer currentPage, Integer lineSize) throws Exception {
+        return listHandle(column,keyWord,currentPage,lineSize,"EmpNS.findAllEmp");
+    }
+
+    public Integer getAllEmpCount(String column, String keyWord) throws Exception {
+        return countHandle(column,keyWord,"EmpNS.findAllEmpCount");
+    }
+
     public boolean doCreate(Emp vo) throws Exception {
         return getSession().insert("EmpNS.doCreate",vo)>0;
     }
 
     public boolean doUpdate(Emp vo) throws Exception {
-        return false;
+        return getSession().update("EmpNS.doUpdate",vo)>0;
     }
 
     public boolean doRemoveBatch(Set<Integer> ids) throws Exception {

@@ -1,10 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
-	String addUrl = basePath + "" ;
+	String addUrl = basePath + "pages/emp/add.action" ;
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -73,10 +74,9 @@
 										<label class="col-md-3 control-label" for="dept.did">所属部门：</label>
 										<div class="col-md-5">
 											<select id="dept.did" name="dept.did" class="form-control">
-												<option value="2">人事部</option>
-												<option value="3">行政部</option>
-												<option value="4" selected>市场部</option>
-												<option value="5">财务部</option>
+                                                <c:forEach items="${allDepts}" var="dept">
+                                                    <option value="${dept.did}">${dept.title}</option>
+                                                </c:forEach>
 											</select>
 										</div>
 										<!-- 定义表单错误提示显示元素 -->
@@ -109,13 +109,9 @@
 										<label class="col-md-3 control-label" for="level.lid">员工级别：</label>
 										<div class="col-md-5">
 											<select id="level.lid" name="level.lid" class="form-control">
-												<option value="1">实习生</option>
-												<option value="2" selected>普通员工</option>
-												<option value="3">部门主管</option>
-												<option value="4">部门经理</option>
-												<option value="5">总监</option>
-												<option value="6">副总裁</option>
-												<option value="7">总裁</option>
+                                                <c:forEach items="${allLevels}" var="level">
+                                                    <option value="${level.lid}">${level.title}(${level.losal}~${level.hisal})</option>
+                                                </c:forEach>
 											</select>
 										</div>
 										<!-- 定义表单错误提示显示元素 -->
@@ -132,19 +128,19 @@
 										<!-- 定义表单错误提示显示元素 -->
 										<div class="col-md-4" id="salaryMsg"></div>
 									</div>
-									<div class="form-group" id="photoDiv">
+									<div class="form-group" id="picDiv">
 										<!-- 定义表单提示文字 -->
-										<label class="col-md-3 control-label" for="photo">雇员照片：</label>
+										<label class="col-md-3 control-label" for="pic">雇员照片：</label>
 										<div class="col-md-5">
 											<!-- 定义表单输入组件 -->
-											<input type="file" id="photo" name="photo" class="form-control"
+											<input type="file" id="pic" name="pic" class="form-control"
 												placeholder="请上传员工照片">
 										</div>
 										<!-- 定义表单错误提示显示元素 -->
-										<div class="col-md-4" id="photoMsg"></div>
+										<div class="col-md-4" id="picMsg"></div>
 									</div>
 									<!-- 定义输入表单样式，其中id主要用于设置颜色样式 -->
-									<div class="form-group" id="notice.noteDiv">
+									<div class="form-group" id="noteDiv">
 										<!-- 定义表单提示文字 -->
 										<label class="col-md-3 control-label" for="note">备注信息：</label>
 										<div class="col-md-5">

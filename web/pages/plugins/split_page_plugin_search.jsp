@@ -4,19 +4,21 @@
 <jsp:include page="split_page_plugin_search.jsp"/>
 --%>
 <%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://"
+            + request.getServerName() + ":" + request.getServerPort()
+            + path + "/";
+    String addUrl = basePath + "pages/emp/add.action" ;
+%>
+<%
 	request.setCharacterEncoding("UTF-8") ;
-	String url = request.getContextPath()+(String)request.getAttribute("url") ;
+	String url = (String)request.getAttribute("url") ;
 	String columnData = (String)request.getAttribute("columnData") ;
 	String keyWord = (String)request.getAttribute("keyWord") ;
 	String column = (String)request.getAttribute("column") ;
 %>
-<script type="text/javascript">
-    function goSplit() {
-        window.location="<%=url%>?cp=1&col="+$("#col").val()+"&kw="+$("#kw").val();
-    }
-</script>
 <div class="row">
-	<form action="xx.action" method="post" class="form-group" id="splitSearchForm">
+	<form action="<%=basePath%><%=url%>" method="post" class="form-group" id="splitSearchForm">
 		<fieldset>
 			<div class="form-group">
 				<div class="col-md-2">&nbsp;</div>
@@ -43,7 +45,7 @@
 					<input type="text" name="kw" id="kw" class="form-control input-sm" value="${keyWord}" placeholder="请输入检索关键字">
 				</div>
 				<div class="col-md-2">
-					<button type="button" onclick="goSplit(1)" class="btn btn-primary">检索</button>
+					<button type="submit" class="btn btn-primary">检索</button>
 					<input type="hidden" name="${paramName}" value="${paramValue}">
 					<input type="hidden" name="cp" value="1">
 				</div>

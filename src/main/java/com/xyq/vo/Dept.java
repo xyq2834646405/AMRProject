@@ -8,17 +8,17 @@ import java.util.List;
  * @create 2019-09-09 21:10
  */
 public class Dept implements Serializable {
-    private int did;
+    private Integer did;
     private String title;
-    private int sflag;
+    private Integer sflag;
     private List<Emp> allEmps;
     private List<Groups> allGroups;
 
-    public int getDid() {
+    public Integer getDid() {
         return did;
     }
 
-    public void setDid(int did) {
+    public void setDid(Integer did) {
         this.did = did;
     }
 
@@ -30,11 +30,11 @@ public class Dept implements Serializable {
         this.title = title;
     }
 
-    public int getSflag() {
+    public Integer getSflag() {
         return sflag;
     }
 
-    public void setSflag(int sflag) {
+    public void setSflag(Integer sflag) {
         this.sflag = sflag;
     }
 

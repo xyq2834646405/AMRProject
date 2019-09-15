@@ -41,4 +41,8 @@ public class DeptDaoImpl extends AbstractDao implements IDeptDao {
     public Integer getAllCount(String column, String keyWord) throws Exception {
         return null;
     }
+
+    public List<Dept> findAllBySflag(Integer sflag) throws Exception {
+        return getSession().selectList("DeptNS.findAllBySflag",sflag);
+    }
 }

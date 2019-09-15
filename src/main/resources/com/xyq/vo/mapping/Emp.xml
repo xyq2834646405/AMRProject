@@ -26,7 +26,7 @@
     </insert>
     <!--查询一条信息-->
     <select id="findById" parameterType="int" resultMap="EmpResultMap">
-        select eid,name,did,aflag from emp where eid=#{eid}
+        select eid,did,lid,heid,name,password,phone,salary,note,aflag,sex,photo from emp where eid=#{eid}
     </select>
     <!--查询管理员信息-->
     <select id="findAllAdmin" parameterType="java.util.Map" resultMap="EmpResultMap">
@@ -43,4 +43,31 @@
             and ${column} like #{keyWord}
         </if>
     </select>
+    <!--查询雇员信息-->
+    <select id="findAllEmp" parameterType="java.util.Map" resultMap="EmpResultMap">
+        select eid,did,lid,heid,name,password,phone,salary,note,aflag,sex,photo from emp where aflag = 0
+        <if test="keyWord!=null">
+            and ${column} like #{keyWord}
+        </if>
+        limit #{start},#{lineSize}
+    </select>
+    <!--查询雇员数量-->
+    <select id="findAllEmpCount" parameterType="java.util.Map" resultType="int">
+        select count(*) from emp where aflag = 0
+        <if test="keyWord!=null">
+            and ${column} like #{keyWord}
+        </if>
+    </select>
+    <!--雇员修改操作-->
+    <update id="doUpdate" parameterType="Emp">
+        update emp
+        <set>
+            did=#{dept.did},lid=#{level.lid},name=#{name},
+            <if test="password!=null">
+                password=#{password},
+            </if>
+            phone=#{phone},salary=#{salary},note=#{note},sex=#{sex},photo=#{photo}
+        </set>
+        where eid=#{eid}
+    </update>
 </mapper>

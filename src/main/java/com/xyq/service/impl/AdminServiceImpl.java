@@ -51,7 +51,9 @@ public class AdminServiceImpl extends AbstractService implements IAdminService {
         return empDao.findById(eid)!=null;
     }
 
-    public Map<String, Object> list(String column, String keyWord, int currentPage, int lineSize) throws Exception {
+    public Map<String, Object> list(int eid,String column, String keyWord, int currentPage, int lineSize) throws Exception {
+        if(!checkAuth(eid,3))
+            return null;
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("allEmps",empDao.findAllAdmin(column,keyWord,currentPage,lineSize));
         map.put("EmpCount",empDao.getAllAdminCount(column,keyWord));

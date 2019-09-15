@@ -11,7 +11,11 @@
     </resultMap>
     <!--查询所有部门列表-->
     <select id="findAll" resultMap="DeptResultMap">
-        select did,title,sflag from dept;
+        select did,title,sflag from dept
+    </select>
+    <!--根据sflag查询对应的部门列表-->
+    <select id="findAllBySflag" resultMap="DeptResultMap" parameterType="int">
+        select did,title,sflag from dept where sflag=#{sflag}
     </select>
     <!--修改部门名称-->
     <update id="doUpdate"  parameterType="Dept">

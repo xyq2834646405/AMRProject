@@ -132,7 +132,7 @@ public abstract class AbstractAction {
      * @return
      */
     public boolean saveUpdateFile(MultipartFile file,HttpServletRequest request,String fileName){
-        String filePath = request.getServletContext().getRealPath(this.getSaveFileDiv())+fileName;
+        String filePath = request.getServletContext().getRealPath(this.getSaveFileDiv())+"/"+fileName;
         if(file==null){
             System.out.println("*********************************88");
         }

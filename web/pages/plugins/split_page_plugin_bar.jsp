@@ -12,6 +12,9 @@
 	int allRecorders = 0 ;	// 保存总记录数
 	String column = (String)request.getAttribute("column") ;
 	String keyWord = (String)request.getAttribute("keyWord") ;
+	if(keyWord==null){
+	    keyWord="";
+    }
 	String paramName = (String)request.getAttribute("paramName") ;
 	String paramValue = (String)request.getAttribute("paramValue") ;
 	String paramNameB = (String)request.getAttribute("paramNameB") ;

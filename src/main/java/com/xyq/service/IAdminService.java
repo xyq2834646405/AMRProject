@@ -44,5 +44,5 @@ public interface IAdminService {
      *     <li>key=EmpCount、value=IAdminDao.findAllAdminCount()</li>
      * @throws Exception
      */
-    public Map<String,Object> list(String column,String keyWord,int currentPage,int lineSize) throws Exception;
+    public Map<String,Object> list(int eid,String column,String keyWord,int currentPage,int lineSize) throws Exception;
 }
