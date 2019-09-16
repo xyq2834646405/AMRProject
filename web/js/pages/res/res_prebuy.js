@@ -1,12 +1,12 @@
 $(function() {
 	$("#allPrice").text(calSum()) ;
 	$("#selectAll").on("click",function(){
-		checkboxSelectAll('rid',this.checked) ;
+		checkboxSelectAll('did',this.checked) ;
 	}) ;
 	// 实现整体修改操作的功能
 	$(editBtn).on("click",function(){
 		// 定义一个数组，保存所有需要被删除的gid数据
-		var delGid = new Array() ;
+		var delGid = "" ;
 		var foot = 0 ;
 		var data = "" ; // 实现最终数据拼凑的字符串
 		$("[id*=amount-]").each(function(){
@@ -15,24 +15,33 @@ $(function() {
 			if (amount != "0") {
 				data += gid + ":" + amount + "|" ;
 			} else {
-				delGid[foot ++] = gid ;
+                delGid += gid + "|";
 			}
 		}) ;
 		// 进行ajax异步数据处理操作
-			operateAlert(true,"商品数量修改成功！","商品数量修改失败！") ;
-			for (var x = 0 ; x < delGid.length ; x ++) {
-				$("#sc-" + delGid[x]).remove() ;
-			}
+        $.post("pages/res/editAmount.action",{updateStr:data,deleteStr:delGid},function (data) {
+            operateAlert(data.trim()=="true","商品数量修改成功！","商品数量修改失败！") ;
+            var temp = delGid.split("|");
+            for (var x = 0; x < temp.length; x++) {
+                $("#res-"+temp[x]).remove();
+            }
+        },"text");
 	}) ;
 	$("#rmBtn").on("click",function(){	// 绑定用户锁定操作
-		var data = "" ;
+		var del = "" ;
 		$(":checked").each(function() {
-			if(this.id == "goods.gid") {	// 要删除的内容
-				data += this.value + "|" ;
+			if(this.id == "did") {	// 要删除的内容
+                del += this.value + "|" ;
 			}
 		}) ;
-		if (data != "") {
-			
+		if (del != "") {
+            $.post("pages/res/removeDetails.action",{deleteStr:del},function (data) {
+                operateAlert(data.trim()=="true","商品删除成功！","商品删除失败！") ;
+                var temp = del.split("|");
+                for (var x = 0; x < temp.length; x++) {
+                    $("#res-"+temp[x]).remove();
+                }
+            },"text");
 		}
 	}) ;
 	$("button[id*=add-]").each(function(){

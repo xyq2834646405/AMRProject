@@ -1,10 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
-	String addUrl = basePath + "" ;
+	String addUrl = basePath + "pages/res/add.action" ;
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -43,31 +44,26 @@
 										<!-- 定义表单错误提示显示元素 -->
 										<div class="col-md-4" id="titleMsg"></div>
 									</div>
-									<div class="form-group" id="type.tid">
+									<div class="form-group" id="type.tidDiv">
 										<!-- 定义表单提示文字 -->
 										<label class="col-md-3 control-label" for="type.tid">用品分类：</label>
 										<div class="col-md-5">
 											<select id="type.tid" name="type.tid" class="form-control">
-												<option value="1">文件档案用品</option>
-												<option value="2">桌面用品</option>
-												<option value="3">办公设备</option>
-												<option value="4">财务用品</option>
-												<option value="5">办公耗材</option>
+												<option>选择购买用品的分类</option>
+                                                <c:forEach items="${allTypes}" var="type">
+                                                    <option value="${type.tid}">${type.title}</option>
+                                                </c:forEach>
 											</select>
 										</div>
 										<!-- 定义表单错误提示显示元素 -->
 										<div class="col-md-4" id="type.tidMsg"></div>
 									</div>
-									<div class="form-group" id="subtype.stid">
+									<div class="form-group" id="subtype.stidDiv">
 										<!-- 定义表单提示文字 -->
 										<label class="col-md-3 control-label" for="subtype.stid">用品子类：</label>
 										<div class="col-md-5">
 											<select id="subtype.stid" name="subtype.stid" class="form-control">
-												<option value="1">报告夹</option>
-												<option value="2">分类文件夹</option>
-												<option value="3">电脑夹</option>
-												<option value="4">档案袋</option>
-												<option value="5">名片盒</option>
+<%--												<option value="1">报告夹</option>--%>
 											</select>
 										</div>
 										<!-- 定义表单错误提示显示元素 -->
@@ -98,16 +94,16 @@
 										<!-- 定义表单错误提示显示元素 -->
 										<div class="col-md-4" id="rflagMsg"></div>
 									</div>
-									<div class="form-group" id="photoDiv">
+									<div class="form-group" id="picDiv">
 										<!-- 定义表单提示文字 -->
-										<label class="col-md-3 control-label" for="photo">用品图片：</label>
+										<label class="col-md-3 control-label" for="pic">用品图片：</label>
 										<div class="col-md-5">
 											<!-- 定义表单输入组件 -->
-											<input type="file" id="photo" name="photo" class="form-control"
+											<input type="file" id="pic" name="pic" class="form-control"
 												placeholder="请上传员工照片">
 										</div>
 										<!-- 定义表单错误提示显示元素 -->
-										<div class="col-md-4" id="photoMsg"></div>
+										<div class="col-md-4" id="picMsg"></div>
 									</div>
 									<div class="form-group">
 										<div class="col-md-5 col-md-offset-3">

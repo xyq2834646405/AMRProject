@@ -6,6 +6,8 @@ import com.xyq.service.ISubtypeService;
 import com.xyq.service.ITypeService;
 import com.xyq.vo.Subtype;
 import com.xyq.vo.Type;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @Author xyq
@@ -76,5 +80,25 @@ public class TypeAction extends AbstractActionAdapter {
             e.printStackTrace();
         }
         return mav;
+    }
+
+    @RequestMapping("getSubType")
+    public ModelAndView getSubType(int tid,HttpServletResponse response){
+        try {
+            List<Subtype> all = subtypeService.list(tid);
+            Iterator<Subtype> iter = all.iterator();
+            JSONArray array = new JSONArray();
+            while(iter.hasNext()){
+                Subtype subtype = iter.next();
+                JSONObject temp = new JSONObject();
+                temp.put("stid",subtype.getStid());
+                temp.put("title",subtype.getTitle());
+                array.add(temp);
+            }
+            print(response,array);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

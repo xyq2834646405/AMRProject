@@ -70,12 +70,11 @@
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.xyq.service.impl" />
-      <recent name="com.xyq.dao.impl" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\programming\workspace\AMRProject\src\main\resources\com\xyq\vo\mapping" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\programming\workspace\AMRProject\src\main\resources\com\xyq\vo\mapping" />
@@ -84,8 +83,9 @@
       <recent name="D:\programming\workspace\AMRProject\src\main\resources\com.xyq.vo.mapping" />
       <recent name="D:\programming\workspace\AMRProject\web" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\programming\workspace\AMRProject\src\main\resources\com\xyq\vo\mapping" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.xyq.dao.impl" />
+      <recent name="com.xyq.service.impl" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -200,7 +200,7 @@
       <workItem from="1568561862735" duration="7565000" />
       <workItem from="1568572428354" duration="43000" />
       <workItem from="1568601695895" duration="5317000" />
-      <workItem from="1568613627349" duration="974000" />
+      <workItem from="1568613627349" duration="14049000" />
     </task>
     <servers />
   </component>

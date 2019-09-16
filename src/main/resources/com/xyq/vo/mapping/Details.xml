@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DetailsNS">
+    <resultMap id="DetailsResultMap" type="Details">
+        <id property="did" column="did"/>
+        <result property="title" column="title"/>
+        <result property="price" column="price"/>
+        <result property="amount" column="amount"/>
+        <result property="photo" column="photo"/>
+        <result property="rflag" column="rflag"/>
+        <association property="type" column="tid" resultMap="TypeNS.TypeResultMap"/>
+        <association property="subtype" column="stid" resultMap="SubtypeNS.SubtypeResultMap"/>
+        <association property="emp" column="eid" resultMap="EmpNS.EmpResultMap"/>
+    </resultMap>
+    <!--商品明细添加-->
+    <insert id="doCreate" parameterType="Details">
+        insert into details(tid,stid,eid,title,price,amount,photo,rflag) values (#{type.tid},#{subtype.stid},#{emp.eid},#{title},#{price},#{amount},#{photo},#{rflag})
+    </insert>
+    <!--根据雇员编号查询所有待购清单的明细-->
+    <select id="findAllPrebuy" parameterType="int" resultMap="DetailsResultMap">
+        select did,tid,stid,eid,title,price,amount,photo,rflag from details where pid is null and eid=#{eid}
+    </select>
+    <!--数量的修改操作(数量>0)-->
+    <update id="doUpdateAmount" parameterType="Details">
+        update details set amount=#{amount} where did=#{did} and eid=#{emp.eid}
+    </update>
+    <!--数量的修改操作(数量=0)-->
+    <delete id="doRemoveBatchByAmount" parameterType="int">
+        delete from details where did in
+        <foreach collection="array" open="(" close=")" separator="," item="ele">
+            #{ele}
+        </foreach>
+    </delete>
+</mapper>

@@ -228,6 +228,7 @@ public abstract class AbstractAction {
      */
     public void print(HttpServletResponse response,Object obj){
         try {
+            response.setCharacterEncoding("UTF-8");
             response.getWriter().print(obj);
         } catch (IOException e) {
             e.printStackTrace();
