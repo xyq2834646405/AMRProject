@@ -14,6 +14,8 @@
         <typeAlias type="com.xyq.vo.Groups" alias="Groups"/>
         <typeAlias type="com.xyq.vo.Action" alias="Action"/>
         <typeAlias type="com.xyq.vo.Level" alias="Level"/>
+        <typeAlias type="com.xyq.vo.Type" alias="Type"/>
+        <typeAlias type="com.xyq.vo.Subtype" alias="Subtype"/>
     </typeAliases>
     <!--读取mapping-->
     <mappers>
@@ -22,5 +24,7 @@
         <mapper resource="com/xyq/vo/mapping/Groups.xml"/>
         <mapper resource="com/xyq/vo/mapping/Action.xml"/>
         <mapper resource="com/xyq/vo/mapping/Level.xml"/>
+        <mapper resource="com/xyq/vo/mapping/Type.xml"/>
+        <mapper resource="com/xyq/vo/mapping/Subtype.xml"/>
     </mappers>
 </configuration>

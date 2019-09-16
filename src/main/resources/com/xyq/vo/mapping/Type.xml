@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TypeNS">
+    <resultMap id="TypeResultMap" type="Type">
+        <id property="tid" column="tid"/>
+        <result property="title" column="title"/>
+    </resultMap>
+    <!--查询全部type数据-->
+    <select id="findAll" resultMap="TypeResultMap">
+        select tid,title from type
+    </select>
+    <!--修改type数据-->
+    <update id="doUpdate" parameterType="Type">
+        update type set title=#{title} where tid=#{tid}
+    </update>
+</mapper>

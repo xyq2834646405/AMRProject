@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SubtypeNS">
+    <resultMap id="SubtypeResultMap" type="Subtype">
+        <id property="stid" column="stid"/>
+        <result property="title" column="title"/>
+        <association property="type" column="tid" resultMap="TypeNS.TypeResultMap"/>
+    </resultMap>
+    <!--根据tid查询对应类型的数据-->
+    <select id="findAllByType" resultMap="SubtypeResultMap" parameterType="int">
+        select stid,tid,title from subtype where tid=#{tid}
+    </select>
+    <!--修改子类型数据-->
+    <update id="doUpdate" parameterType="Subtype">
+        update subtype set title=#{title} where stid=#{stid}
+    </update>
+</mapper>

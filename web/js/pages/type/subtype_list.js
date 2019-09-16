@@ -1,9 +1,11 @@
 $(function(){
 	$("[id*=editBtn-]").each(function(){
-		var tid = this.id.split("-")[1] ;
+		var stid = this.id.split("-")[1] ;
 		$(this).on("click",function(){
-			console.log("***** tid = " + tid) ; 
-			operateAlert(true , "办公用品子分类信息修改成功！","办公用品子分类信息修改失败！") ;
-		}) ;
+			var title = $("#title-"+stid).val();
+            $.post("pages/type/editSubtype.action",{stid:stid,title:title},function (data) {
+                operateAlert(data.trim()=="true" , "办公用品子分类信息修改成功！","办公用品子分类信息修改失败！") ;
+            },"text")
+        }) ;
 	})
 })

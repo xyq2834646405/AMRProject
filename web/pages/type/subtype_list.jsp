@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -34,26 +35,12 @@
 									<th>子栏目名称</th>
 									<th>操作</th>
 								</tr>
-								<tr>
-									<td><input type="text" name="title-1" id="title-1" value="报告夹" class="form-control"></td>
-									<td><button class="btn btn-info" id="editBtn-1"><span class="fa fa-pencil-square"></span> 修改</button></td>
-								</tr>
-								<tr>
-									<td><input type="text" name="title-2" id="title-2" value="分类文件夹" class="form-control"></td>
-									<td><button class="btn btn-info" id="editBtn-2"><span class="fa fa-pencil-square"></span> 修改</button></td>
-								</tr>
-								<tr>
-									<td><input type="text" name="title-3" id="title-3" value="电脑夹" class="form-control"></td>
-									<td><button class="btn btn-info" id="editBtn-3"><span class="fa fa-pencil-square"></span> 修改</button></td>
-								</tr>
-								<tr>
-									<td><input type="text" name="title-4" id="title-4" value="档案袋" class="form-control"></td>
-									<td><button class="btn btn-info" id="editBtn-4"><span class="fa fa-pencil-square"></span> 修改</button></td>
-								</tr>
-								<tr>
-									<td><input type="text" name="title-5" id="title-5" value="名片盒" class="form-control"></td>
-									<td><button class="btn btn-info" id="editBtn-5"><span class="fa fa-pencil-square"></span> 修改</button></td>
-								</tr>
+                                <c:forEach items="${allSubtypes}" var="subtype">
+                                    <tr>
+                                        <td><input type="text" name="title-${subtype.stid}" id="title-${subtype.stid}" value="${subtype.title}" class="form-control"></td>
+                                        <td><button class="btn btn-info" id="editBtn-${subtype.stid}"><span class="fa fa-pencil-square"></span> 修改</button></td>
+                                    </tr>
+                                </c:forEach>
 							</table>
 							<jsp:include page="/pages/plugins/include_alert.jsp"/>  
 						</div>
