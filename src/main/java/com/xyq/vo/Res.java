@@ -4,26 +4,24 @@ import java.io.Serializable;
 
 /**
  * @Author xyq
- * @create 2019-09-16 14:58
+ * @create 2019-09-17 10:03
  */
-public class Details implements Serializable {
-    private Integer did;
+public class Res implements Serializable {
+    private Integer rid;
     private Type type;
     private Subtype subtype;
-    private Emp emp;
     private String title;
     private Double price;
-    private Integer amount;
     private String photo;
     private Integer rflag;
-    private Res res;
+    private Integer amount;
 
-    public Integer getDid() {
-        return did;
+    public Integer getRid() {
+        return rid;
     }
 
-    public void setDid(Integer did) {
-        this.did = did;
+    public void setRid(Integer rid) {
+        this.rid = rid;
     }
 
     public Type getType() {
@@ -42,14 +40,6 @@ public class Details implements Serializable {
         this.subtype = subtype;
     }
 
-    public Emp getEmp() {
-        return emp;
-    }
-
-    public void setEmp(Emp emp) {
-        this.emp = emp;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -64,14 +54,6 @@ public class Details implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
     }
 
     public String getPhoto() {
@@ -90,11 +72,11 @@ public class Details implements Serializable {
         this.rflag = rflag;
     }
 
-    public Res getRes() {
-        return res;
+    public Integer getAmount() {
+        return amount;
     }
 
-    public void setRes(Res res) {
-        this.res = res;
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 }

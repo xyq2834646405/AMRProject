@@ -3,6 +3,7 @@ package com.xyq.action;
 import com.xyq.action.adapter.AbstractActionAdapter;
 import com.xyq.service.IDetailsService;
 import com.xyq.vo.Details;
+import com.xyq.vo.Emp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,10 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author xyq
@@ -62,6 +60,50 @@ public class DetailsAction extends AbstractActionAdapter {
         return mav;
     }
 
+    @RequestMapping("editPre")
+    public ModelAndView editPre(int did,HttpServletRequest request){
+        ModelAndView mav = new ModelAndView();
+        try {
+            Map<String, Object> map = detailsService.editPre(getEid(request), did);
+            mav.addObject("allTypes",map.get("allTypes"));
+            mav.addObject("allSubtypes",map.get("allSubtypes"));
+            mav.addObject("details",map.get("details"));
+            mav.setViewName(getMsg("details.edit.page"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mav;
+    }
+
+    @RequestMapping("edit")
+    public ModelAndView edit(Details details,MultipartFile pic,HttpServletRequest request){
+        ModelAndView mav = new ModelAndView();
+        if (isAuth(25,request)){
+            if (pic!=null&&pic.getSize()>0){
+                if ("nophoto.png".equals(details.getPhoto())){
+                    details.setPhoto(createSingleFileName(pic));
+                }
+            }
+            details.setEmp(new Emp());
+            details.getEmp().setEid(getEid(request));
+            try {
+                if (detailsService.edit(getEid(request),details)){
+                    saveUpdateFile(pic,request,details.getPhoto());
+                    setMsgAndUrl("vo.edit.success","details.list.action",mav);
+                }else {
+                    setMsgAndUrl("vo.edit.failure","details.list.action",mav);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                setMsgAndUrl("vo.edit.failure","details.list.action",mav);
+            }
+            mav.setViewName(getMsg("forward.page"));
+        }else {
+            mav.setViewName(getMsg("errors.page"));
+        }
+        return mav;
+    }
+
     @RequestMapping("prebuy")
     public ModelAndView prebuy(HttpServletRequest request){
         ModelAndView mav = new ModelAndView();
@@ -95,7 +137,15 @@ public class DetailsAction extends AbstractActionAdapter {
                 }
             }
             try {
-                print(response,detailsService.editAmount(getEid(request),updateMap,deleteIds));
+                Map<String,Object> map = detailsService.editAmount(getEid(request),updateMap,deleteIds);
+                List<Details> allDetails = (List<Details>)map.get("allDetails");
+                if (allDetails!=null){//有数据删除
+                    Iterator<Details> iter = allDetails.iterator();
+                    while (iter.hasNext()){
+                        deleteFile(request,iter.next().getPhoto());
+                    }
+                }
+                print(response,map.get("flag"));
             } catch (Exception e) {
                 e.printStackTrace();
                 print(response,false);
@@ -117,7 +167,15 @@ public class DetailsAction extends AbstractActionAdapter {
                 }
             }
             try {
-                print(response,detailsService.removeDetailsBatch(getEid(request),deleteIds));
+                Map<String, Object> map = detailsService.removeDetailsBatch(getEid(request), deleteIds);
+                List<Details> allDetails = (List<Details>)map.get("allDetails");
+                if (allDetails!=null||allDetails.size()!=0){
+                    Iterator<Details> iter = allDetails.iterator();
+                    while(iter.hasNext()){
+                        deleteFile(request,iter.next().getPhoto());
+                    }
+                }
+                print(response,map.get("flag"));
             } catch (Exception e) {
                 e.printStackTrace();
                 print(response,false);

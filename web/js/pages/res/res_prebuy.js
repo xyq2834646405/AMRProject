@@ -7,7 +7,6 @@ $(function() {
 	$(editBtn).on("click",function(){
 		// 定义一个数组，保存所有需要被删除的gid数据
 		var delGid = "" ;
-		var foot = 0 ;
 		var data = "" ; // 实现最终数据拼凑的字符串
 		$("[id*=amount-]").each(function(){
 			var gid = this.id.split("-")[1] ;
@@ -19,12 +18,15 @@ $(function() {
 			}
 		}) ;
 		// 进行ajax异步数据处理操作
+        console.log(delGid);
+        console.log(data);
         $.post("pages/res/editAmount.action",{updateStr:data,deleteStr:delGid},function (data) {
             operateAlert(data.trim()=="true","商品数量修改成功！","商品数量修改失败！") ;
             var temp = delGid.split("|");
             for (var x = 0; x < temp.length; x++) {
                 $("#res-"+temp[x]).remove();
             }
+            $("#allPrice").text(calSum()) ;
         },"text");
 	}) ;
 	$("#rmBtn").on("click",function(){	// 绑定用户锁定操作
@@ -41,6 +43,7 @@ $(function() {
                 for (var x = 0; x < temp.length; x++) {
                     $("#res-"+temp[x]).remove();
                 }
+                $("#allPrice").text(calSum()) ;
             },"text");
 		}
 	}) ;

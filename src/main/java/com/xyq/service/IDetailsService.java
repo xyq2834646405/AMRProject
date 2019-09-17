@@ -42,17 +42,42 @@ public interface IDetailsService {
      * @param eid 当前的用户id,进行权限的验证
      * @param updateMap 商品修改的数量key=did,value=amount
      * @param deleteIds 所有购买数量为0的商品信息
-     * @return 编辑成功返回true,否则返回false
+     * @return 返回的内容包含如下内容:<br>
+     *     <li>key=flag,描述成功或失败</li>
+     *     <li>key=allDetails、value=IDetailsDao.findAllByPhoto</li>
      * @throws Exception
      */
-    public boolean editAmount(int eid, Map<Integer,Integer> updateMap, Set<Integer> deleteIds) throws Exception;
+    public Map<String,Object> editAmount(int eid, Map<Integer,Integer> updateMap, Set<Integer> deleteIds) throws Exception;
 
     /**
      * 待购商品中的删除商品操作
      * @param eid
      * @param deleteIds
+     * @return 返回的内容包含如下内容:<br>
+     *     <li>key=flag,描述成功或失败</li>
+     *     <li>key=allDetails、value=IDetailsDao.findAllByPhoto</li>
+     * @throws Exception
+     */
+    public Map<String,Object> removeDetailsBatch(int eid,Set<Integer> deleteIds)throws Exception;
+
+    /**
+     * 修改购物清单信息
+     * @param eid
+     * @param did
+     * @return 返回的内容包含如下内容:<br>
+     *     <li>key=allTypes、value=ITypeDao.findAll</li>
+     *     <li>key=allSubtypes、value=ISubtypeDao.findAllByType</li>
+     *     <li>key=details、value=IDetailsDao.findByIdAndPrebuy</li>
+     * @throws Exception
+     */
+    public Map<String,Object> editPre(int eid,int did) throws Exception;
+
+    /**
+     * 实现数据的更新处理操作
+     * @param eid
+     * @param details
      * @return
      * @throws Exception
      */
-    public boolean removeDetailsBatch(int eid,Set<Integer> deleteIds)throws Exception;
+    public boolean edit(int eid,Details details) throws Exception;
 }

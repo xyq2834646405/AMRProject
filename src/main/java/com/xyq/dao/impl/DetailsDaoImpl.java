@@ -5,7 +5,9 @@ import com.xyq.dao.abs.AbstractDao;
 import com.xyq.vo.Details;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -52,5 +54,20 @@ public class DetailsDaoImpl extends AbstractDao implements IDetailsDao {
 
     public boolean doRemoveByAmount(Set<Integer> ids) throws Exception {
         return getSession().delete("DetailsNS.doRemoveBatchByAmount",ids.toArray())>0;
+    }
+
+    public List<Details> findAllByPhoto(Set<Integer> ids) throws Exception {
+        return getSession().selectList("DetailsNS.findAllByPhoto",ids.toArray());
+    }
+
+    public Details findByIdAndPrebuy(Integer eid,Integer id) throws Exception {
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("did",id);
+        map.put("eid",eid);
+        return getSession().selectOne("DetailsNS.findByIdAndPrebuy",map);
+    }
+
+    public boolean doUpdatePrebuy(Details vo) throws Exception {
+        return getSession().update("DetailsNS.doUpdatePrebuy",vo)>0;
     }
 }

@@ -133,9 +133,6 @@ public abstract class AbstractAction {
      */
     public boolean saveUpdateFile(MultipartFile file,HttpServletRequest request,String fileName){
         String filePath = request.getServletContext().getRealPath(this.getSaveFileDiv())+"/"+fileName;
-        if(file==null){
-            System.out.println("*********************************88");
-        }
         if (file.getSize() > 0) {
             OutputStream output = null;
             InputStream input = null;
@@ -169,6 +166,21 @@ public abstract class AbstractAction {
             }
         }
         return false;
+    }
+
+    /**
+     * 删除文件信息
+     * @param request
+     * @param fileName
+     */
+    public void deleteFile(HttpServletRequest request,String fileName){
+        if (!"nophoto.png".equals(fileName)){
+            String filePath = request.getServletContext().getRealPath(this.getSaveFileDiv())+"/"+fileName;
+            File file = new File(filePath);
+            if (file.exists()){
+                file.delete();
+            }
+        }
     }
 
     /**

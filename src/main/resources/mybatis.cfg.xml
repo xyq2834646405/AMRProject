@@ -17,6 +17,7 @@
         <typeAlias type="com.xyq.vo.Type" alias="Type"/>
         <typeAlias type="com.xyq.vo.Subtype" alias="Subtype"/>
         <typeAlias type="com.xyq.vo.Details" alias="Details"/>
+        <typeAlias type="com.xyq.vo.Res" alias="Res"/>
     </typeAliases>
     <!--读取mapping-->
     <mappers>
@@ -28,5 +29,6 @@
         <mapper resource="com/xyq/vo/mapping/Type.xml"/>
         <mapper resource="com/xyq/vo/mapping/Subtype.xml"/>
         <mapper resource="com/xyq/vo/mapping/Details.xml"/>
+        <mapper resource="com/xyq/vo/mapping/Res.xml"/>
     </mappers>
 </configuration>

@@ -1,10 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
-	String addUrl = basePath + "" ;
+	String editUrl = basePath + "pages/res/edit.action" ;
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -30,7 +31,7 @@
 						</div>
 						<!-- /.box-header -->
 						<div class="">
-							<form class="form-horizontal" action="<%=addUrl%>" id="myform" method="post" enctype="multipart/form-data">
+							<form class="form-horizontal" action="<%=editUrl%>" id="myform" method="post" enctype="multipart/form-data">
 								<fieldset>
 									<div class="form-group" id="titleDiv">
 										<!-- 定义表单提示文字 -->
@@ -38,36 +39,32 @@
 										<div class="col-md-5">
 											<!-- 定义表单输入组件 -->
 											<input type="text" id="title" name="title" class="form-control"
-												placeholder="请输入要购买的用品名称">
+												placeholder="请输入要购买的用品名称" value="${details.title}">
 										</div>
 										<!-- 定义表单错误提示显示元素 -->
 										<div class="col-md-4" id="titleMsg"></div>
 									</div>
-									<div class="form-group" id="type.tid">
+									<div class="form-group" id="type.tidDiv">
 										<!-- 定义表单提示文字 -->
 										<label class="col-md-3 control-label" for="type.tid">用品分类：</label>
 										<div class="col-md-5">
 											<select id="type.tid" name="type.tid" class="form-control">
-												<option value="1">文件档案用品</option>
-												<option value="2">桌面用品</option>
-												<option value="3">办公设备</option>
-												<option value="4">财务用品</option>
-												<option value="5">办公耗材</option>
+                                                <c:forEach items="${allTypes}" var="type">
+                                                    <option value="${type.tid}" ${details.type.tid==type.tid?"selected":""}>${type.title}</option>
+                                                </c:forEach>
 											</select>
 										</div>
 										<!-- 定义表单错误提示显示元素 -->
 										<div class="col-md-4" id="type.tidMsg"></div>
 									</div>
-									<div class="form-group" id="subtype.stid">
+									<div class="form-group" id="subtype.stidDiv">
 										<!-- 定义表单提示文字 -->
 										<label class="col-md-3 control-label" for="subtype.stid">用品子类：</label>
 										<div class="col-md-5">
 											<select id="subtype.stid" name="subtype.stid" class="form-control">
-												<option value="1">报告夹</option>
-												<option value="2">分类文件夹</option>
-												<option value="3">电脑夹</option>
-												<option value="4">档案袋</option>
-												<option value="5">名片盒</option>
+                                                <c:forEach items="${allSubtypes}" var="subtype">
+                                                    <option value="${subtype.stid}" ${details.subtype.stid==subtype.stid?"selected":""}>${subtype.title}</option>
+                                                </c:forEach>
 											</select>
 										</div>
 										<!-- 定义表单错误提示显示元素 -->
@@ -79,7 +76,7 @@
 										<div class="col-md-5">
 											<!-- 定义表单输入组件 -->
 											<input type="text" id="price" name="price" class="form-control"
-												placeholder="请输入商品购买单价">
+												placeholder="请输入商品购买单价" value="${details.price}">
 										</div>
 										<!-- 定义表单错误提示显示元素 -->
 										<div class="col-md-4" id="priceMsg"></div>
@@ -89,29 +86,31 @@
 										<label class="col-md-3 control-label" for="rflag">是否重复使用：</label>
 										<div class="col-md-5">
 											<div class="radio-inline">
-												<label><input type="radio" name="rflag" id="rflag" value="1" checked>重复使用</label>
+												<label><input type="radio" name="rflag" id="rflag" value="1" ${details.rflag==1?"checked":""}>重复使用</label>
 											</div>
 											<div class="radio-inline">
-												<label><input type="radio" name="rflag" id="rflag" value="0">不重复使用</label>
+												<label><input type="radio" name="rflag" id="rflag" value="0" ${details.rflag==0?"checked":""}>不重复使用</label>
 											</div>
 										</div>
 										<!-- 定义表单错误提示显示元素 -->
 										<div class="col-md-4" id="rflagMsg"></div>
 									</div>
-									<div class="form-group" id="photoDiv">
+									<div class="form-group" id="picDiv">
 										<!-- 定义表单提示文字 -->
-										<label class="col-md-3 control-label" for="photo">用品图片：</label>
+										<label class="col-md-3 control-label" for="pic">用品图片：</label>
 										<div class="col-md-5">
 											<!-- 定义表单输入组件 -->
-											<input type="file" id="photo" name="photo" class="form-control"
+											<input type="file" id="pic" name="pic" class="form-control"
 												placeholder="请上传员工照片">
 										</div>
 										<!-- 定义表单错误提示显示元素 -->
-										<div class="col-md-4" id="photoMsg"></div>
+										<div class="col-md-4" id="picMsg"></div>
 									</div>
 									<div class="form-group">
 										<div class="col-md-5 col-md-offset-3">
-											<button type="submit" class="btn btn-primary">添加</button>
+                                            <input type="hidden" name="did" value="${details.did}">
+                                            <input type="hidden" name="photo" value="${details.photo}">
+											<button type="submit" class="btn btn-primary">更新</button>
 											<button type="reset" class="btn btn-warning">重置</button>
 										</div>
 									</div>

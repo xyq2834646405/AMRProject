@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ResNS">
+    <resultMap id="ResResultMap" type="Res">
+        <id property="rid" column="rid"/>
+        <result property="title" column="title"/>
+        <result property="price" column="price"/>
+        <result property="amount" column="amount"/>
+        <result property="photo" column="photo"/>
+        <result property="rflag" column="rflag"/>
+        <association property="type" column="tid" resultMap="TypeNS.TypeResultMap"/>
+        <association property="subtype" column="stid" resultMap="SubtypeNS.SubtypeResultMap"/>
+    </resultMap>
+</mapper>

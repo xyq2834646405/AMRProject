@@ -12,6 +12,7 @@
         <association property="type" column="tid" resultMap="TypeNS.TypeResultMap"/>
         <association property="subtype" column="stid" resultMap="SubtypeNS.SubtypeResultMap"/>
         <association property="emp" column="eid" resultMap="EmpNS.EmpResultMap"/>
+        <association property="res" column="rid" resultMap="ResNS.ResResultMap"/>
     </resultMap>
     <!--商品明细添加-->
     <insert id="doCreate" parameterType="Details">
@@ -19,7 +20,7 @@
     </insert>
     <!--根据雇员编号查询所有待购清单的明细-->
     <select id="findAllPrebuy" parameterType="int" resultMap="DetailsResultMap">
-        select did,tid,stid,eid,title,price,amount,photo,rflag from details where pid is null and eid=#{eid}
+        select did,tid,stid,eid,rid,title,price,amount,photo,rflag from details where pid is null and eid=#{eid}
     </select>
     <!--数量的修改操作(数量>0)-->
     <update id="doUpdateAmount" parameterType="Details">
@@ -32,4 +33,23 @@
             #{ele}
         </foreach>
     </delete>
+    <!--查询所有删除的图片-->
+    <select id="findAllByPhoto" parameterType="int" resultMap="DetailsResultMap">
+        select did,photo,eid from details
+        <where>
+            did in
+            <foreach collection="array" open="(" close=")" separator="," item="ele">
+                #{ele}
+            </foreach>
+            and rid is null
+        </where>
+    </select>
+    <!--查询一个代购买的商品-->
+    <select id="findByIdAndPrebuy" parameterType="java.util.Map" resultMap="DetailsResultMap">
+        select did,tid,stid,eid,pid,rid,title,price,amount,photo,rflag from details where did=#{did} and eid=#{eid} and pid is null and rid is null
+    </select>
+    <!--查询一个商品数据-->
+    <update id="doUpdatePrebuy" parameterType="Details">
+        update details set tid=#{type.tid},stid=#{subtype.stid},title=#{title},price=#{price},photo=#{photo} where did=#{did} and eid=#{emp.eid} and pid is null and rid is null
+    </update>
 </mapper>

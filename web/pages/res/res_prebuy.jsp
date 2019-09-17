@@ -53,7 +53,11 @@
                                             <input type="text" id="amount-${details.did}" name="amount-${details.did}" class="shopcar-form-control" size="4" maxlength="4" value="${details.amount}">
                                             <button class="btn btn-primary" id="add-${details.did}">+</button>
                                         </td>
-                                        <td class="text-center"><a href="pages/res/editPre.action?did=${details.did}" class="btn btn-warning">编辑</a></td>
+                                        <td class="text-center">
+                                            <c:if test="${details.res.rid==null}">
+                                                <a href="pages/res/editPre.action?did=${details.did}" class="btn btn-warning">编辑</a>
+                                            </c:if>
+                                        </td>
                                     </tr>
                                 </c:forEach>
 							</table>
