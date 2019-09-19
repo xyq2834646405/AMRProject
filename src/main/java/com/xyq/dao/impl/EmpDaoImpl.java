@@ -21,6 +21,7 @@ public class EmpDaoImpl extends AbstractDao implements IEmpDao {
             vo.setPhoto(emp.getPhoto());
             vo.setAflag(emp.getAflag());
             vo.setDept(emp.getDept());
+            vo.setLevel(emp.getLevel());
             return true;
         }
         return false;

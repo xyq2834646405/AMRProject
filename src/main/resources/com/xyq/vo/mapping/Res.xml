@@ -6,10 +6,38 @@
         <id property="rid" column="rid"/>
         <result property="title" column="title"/>
         <result property="price" column="price"/>
+        <result property="indate" column="indate"/>
         <result property="amount" column="amount"/>
         <result property="photo" column="photo"/>
         <result property="rflag" column="rflag"/>
         <association property="type" column="tid" resultMap="TypeNS.TypeResultMap"/>
         <association property="subtype" column="stid" resultMap="SubtypeNS.SubtypeResultMap"/>
     </resultMap>
+    <!--把购买商品入库-->
+    <insert id="doCreate" parameterType="Res">
+        insert into res(tid,stid,title,price,indate,photo,rflag,amount) values (#{type.tid},#{subtype.stid},#{title},#{price},#{indate},#{photo},#{rflag},#{amount})
+    </insert>
+    <!--查询入库信息-->
+    <select id="findAllSplit" parameterType="java.util.Map" resultMap="ResResultMap">
+        select rid,stid,title,price,indate,photo,rflag,amount from res 
+        <if test="keyWord!=null">
+            where ${column} like #{keyWord}
+        </if>
+        order by indate limit #{start},#{lineSize}
+    </select>
+    <!--查询入库数量-->
+    <select id="getAllCount" parameterType="java.util.Map" resultType="int">
+        select count(*) from res 
+        <if test="keyWord!=null">
+            where ${column} like #{keyWord}
+        </if>
+    </select>
+    <!--查询一个购入商品-->
+    <select id="findById" parameterType="int" resultMap="ResResultMap">
+        select rid,stid,title,price,indate,photo,rflag,amount from res where rid=#{rid}
+    </select>
+    <!--修改购入商品数量-->
+    <update id="doUpdateAmount" parameterType="java.util.Map">
+        update res set amount=amount+#{amount} where rid=#{rid}
+    </update>
 </mapper>

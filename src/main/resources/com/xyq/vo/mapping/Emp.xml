@@ -18,7 +18,7 @@
     </resultMap>
     <!--密码查询-->
     <select id="findLogin" parameterType="Emp" resultMap="EmpResultMap">
-        select eid,name,password,aflag,photo,did from emp where eid=#{eid} and password=#{password}
+        select eid,name,password,aflag,photo,did,lid from emp where eid=#{eid} and password=#{password}
     </select>
     <!--增加管理员-->
     <insert id="doCreate" parameterType="Emp">

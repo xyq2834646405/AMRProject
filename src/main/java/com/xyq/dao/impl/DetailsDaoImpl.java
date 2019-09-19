@@ -70,4 +70,26 @@ public class DetailsDaoImpl extends AbstractDao implements IDetailsDao {
     public boolean doUpdatePrebuy(Details vo) throws Exception {
         return getSession().update("DetailsNS.doUpdatePrebuy",vo)>0;
     }
+
+    public boolean doUpdateByPurchase(Integer pid, Integer eid) throws Exception {
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("pid",pid);
+        map.put("eid",eid);
+        return getSession().update("DetailsNS.doUpdateByPurchase",map)>0;
+    }
+
+    public List<Details> findAllByPurchase(Integer pid) throws Exception {
+        return getSession().selectList("DetailsNS.findAllByPurchase",pid);
+    }
+
+    public Details findByDetailsExists(Integer eid, Integer rid) throws Exception {
+        Map<String,Integer> map = new HashMap<String, Integer>();
+        map.put("eid",eid);
+        map.put("rid",rid);
+        return getSession().selectOne("DetailsNS.findByDetailsExists",map);
+    }
+
+    public boolean doUpdateAppendAmount(Integer did) throws Exception {
+        return getSession().update("DetailsNS.doUpdateAppendAmount",did)>0;
+    }
 }

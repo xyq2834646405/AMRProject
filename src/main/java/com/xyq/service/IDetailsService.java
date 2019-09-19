@@ -80,4 +80,13 @@ public interface IDetailsService {
      * @throws Exception
      */
     public boolean edit(int eid,Details details) throws Exception;
+
+    /**
+     * 实现已有办公用品的追加购买处理
+     * @param eid 雇员编号
+     * @param rid 办公用品编号
+     * @return
+     * @throws Exception
+     */
+    public boolean addAppend(int eid,int rid) throws Exception;
 }

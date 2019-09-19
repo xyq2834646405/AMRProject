@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -9,9 +10,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<base href="<%=basePath%>">
-<jsp:include page="/pages/plugins/include_javascript_head.jsp" />
-<script type="text/javascript" src="js/pages/dept/dept_list.js"></script>
+    <base href="<%=basePath%>">
+    <jsp:include page="/pages/plugins/include_javascript_head.jsp" />
+    <script type="text/javascript" src="js/pages/purchase/purchase_show.js"></script>
+    <script type="text/javascript">
+        var pid=${purchase.pid};
+    </script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -29,15 +33,15 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-4 col-xs-push-1"><label><strong>申请名称：</strong></label></div>
-							<div class="col-xs-7">就是买电视，看球啊。</div>
+							<div class="col-xs-7">${purchase.title}</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-4 col-xs-push-1"><label><strong>申请人：</strong></label></div>
-							<div class="col-xs-7">老李</div>
+							<div class="col-xs-7">${purchase.emp.name}</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-4 col-xs-push-1"><label><strong>购买总额：</strong></label></div>
-							<div class="col-xs-7"><span class="text-danger h3">￥8902390.90</span></div>
+							<div class="col-xs-7"><span class="text-danger h3">￥${purchase.total}</span></div>
 						</div>
 						<div class="row">
 							<div class="col-xs-4 col-xs-push-1"><label><strong>购入商品：</strong></label></div>
@@ -49,38 +53,34 @@
 											<th>单价</th>
 											<th>购买数量</th>
 										</tr>
-										<tr>
-											<td><img src="upload/res/nophoto.png" class="img" style="width:30px;"> 记事本</td>
-											<td>1.2</td>
-											<td>20</td>
-										</tr>
-										<tr>
-											<td><img src="upload/res/nophoto.png" class="img" style="width:30px;"> 记事本</td>
-											<td>1.2</td>
-											<td>20</td>
-										</tr>
-										<tr>
-											<td><img src="upload/res/nophoto.png" class="img" style="width:30px;"> 记事本</td>
-											<td>1.2</td>
-											<td>20</td>
-										</tr>
+                                        <c:forEach items="${purchase.allDetails}" var="details">
+                                            <tr>
+                                                <td><img src="upload/res/${details.photo}" class="img" style="width:30px;"> ${details.title}</td>
+                                                <td>${details.price}</td>
+                                                <td>${details.amount}</td>
+                                            </tr>
+                                        </c:forEach>
 									</table>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-4 col-xs-push-1"><label><strong>购买说明：</strong></label></div>
-							<div class="col-xs-7">我就是要买我就是要买我就是要买我就是要买我就是要买我就是要买我就是要买我就是要买我就是要买我就是要买
-							我就是要买我就是要买我就是要买我就是要买我就是要买我就是要买我就是要买我就是要买我就是要买我就是要买我就是要买我就是要买</div>
+							<div class="col-xs-7">${purchase.note}</div>
 						</div> 
 						<div class="row">&nbsp;</div>
 						<div class="row">
-							<div class="col-xs-4 col-xs-push-3">
-								<a href="pages/purchase/purchase_list.jsp" type="button" class="btn btn-primary btn-lg">审核通过</a>
-								<a href="pages/purchase/purchase_list.jsp" type="button" class="btn btn-danger btn-lg">审核拒绝</a>
-							</div>  
+                            <c:if test="${purchase.status==0}">
+                                <c:if test="${emp.dept.did==5 and emp.level.lid==4}">
+                                    <div class="col-xs-4 col-xs-push-3" id="auditDiv">
+                                        <button type="button" id="passBut" class="btn btn-primary btn-lg">审核通过</button>
+                                        <button type="button" id="refBut" class="btn btn-danger btn-lg">审核拒绝</button>
+                                    </div>
+                                </c:if>
+                            </c:if>
 						</div>
 						<!-- /.box-body -->
+                        <jsp:include page="/pages/plugins/include_alert.jsp"/>
 					</div>
 					<!-- /.box -->
 				</div>

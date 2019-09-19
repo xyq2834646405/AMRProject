@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -39,81 +41,26 @@
 									<th>是否需要返还</th>
 									<th>操作</th>
 								</tr>
-								<tr>
-									<td><img src="upload/res/nophoto.png" class="img" style="width:30px;"> 记事本</td>
-									<td>2018-09-15</td>
-									<td>20</td>
-									<td>可领取</td>
-									<td>不返还</td>
-									<td>
-										<button class="btn btn-primary btn-xs">加入领取清单</button>
-										<a class="btn btn-warning btn-xs" href="pages/res/res_append.jsp">追加</a>
-									</td>
-								</tr>
-								<tr>
-									<td><img src="upload/res/nophoto.png" class="img" style="width:30px;"> 记事本</td>
-									<td>2018-09-15</td>
-									<td>20</td>
-									<td>可领取</td>
-									<td>不返还</td>
-									<td>
-										<button class="btn btn-primary btn-xs">加入领取清单</button>
-										<a class="btn btn-warning btn-xs" href="pages/res/res_edit.jsp">追加</a></td>
-								</tr>
-								<tr>
-									<td><img src="upload/res/nophoto.png" class="img" style="width:30px;"> 记事本</td>
-									<td>2018-09-15</td>
-									<td>20</td>
-									<td>可领取</td>
-									<td>不返还</td>
-									<td>
-										<button class="btn btn-primary btn-xs">加入领取清单</button>
-										<a class="btn btn-warning btn-xs" href="pages/res/res_edit.jsp">追加</a></td>
-								</tr>
-								<tr>
-									<td><img src="upload/res/nophoto.png" class="img" style="width:30px;"> 记事本</td>
-									<td>2018-09-15</td>
-									<td>20</td>
-									<td>可领取</td>
-									<td>不返还</td>
-									<td>
-										<button class="btn btn-primary btn-xs">加入领取清单</button>
-										<a class="btn btn-warning btn-xs" href="pages/res/res_edit.jsp">追加</a></td>
-								</tr>
-								<tr>
-									<td><img src="upload/res/nophoto.png" class="img" style="width:30px;"> 记事本</td>
-									<td>2018-09-15</td>
-									<td>20</td>
-									<td>可领取</td>
-									<td>不返还</td>
-									<td>
-										<button class="btn btn-primary btn-xs">加入领取清单</button>
-										<a class="btn btn-warning btn-xs" href="pages/res/res_edit.jsp">追加</a></td>
-								</tr>
-								<tr>
-									<td><img src="upload/res/nophoto.png" class="img" style="width:30px;"> 记事本</td>
-									<td>2018-09-15</td>
-									<td>20</td>
-									<td>可领取</td>
-									<td>不返还</td>
-									<td>
-										<button class="btn btn-primary btn-xs">加入领取清单</button>
-										<a class="btn btn-warning btn-xs" href="pages/res/res_edit.jsp">追加</a></td>
-								</tr>
-								<tr>
-									<td><img src="upload/res/nophoto.png" class="img" style="width:30px;"> 记事本</td>
-									<td>2018-09-15</td>
-									<td>20</td>
-									<td>可领取</td>
-									<td>不返还</td>
-									<td>
-										<button class="btn btn-primary btn-xs">加入领取清单</button>
-										<a class="btn btn-warning btn-xs" href="pages/res/res_edit.jsp">追加</a></td>
-								</tr>
+                                <c:forEach items="${allRess}" var="res">
+                                    <tr>
+                                        <td><img src="upload/res/${res.photo}" class="img" style="width:30px;"> ${res.title}</td>
+                                        <td><fmt:formatDate value="${res.indate}"/></td>
+                                        <td>${res.amount}</td>
+                                        <td>${res.amount>0?"可领取":"不可领取"}</td>
+                                        <td>${res.rflag==1?"需要归还":"不需要归还"}</td>
+                                        <td>
+                                            <button id="addBut" class="btn btn-primary btn-xs">加入领取清单</button>
+                                            <c:if test="${emp.dept.did==3}">
+                                                <button id="appendBut-${res.rid}" class="btn btn-warning btn-xs">追加购入</button>
+                                            </c:if>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
 							</table>
 						</div>
 						<!-- /.box-body -->
 						<jsp:include page="/pages/plugins/split_page_plugin_bar.jsp"/>
+                        <jsp:include page="/pages/plugins/include_alert.jsp"/>
 					</div>
 					<!-- /.box -->
 				</div>

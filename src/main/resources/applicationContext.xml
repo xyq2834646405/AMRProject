@@ -16,6 +16,37 @@
     <context:component-scan base-package="com.xyq"/>
     <!--读取配置文件-->
     <context:property-placeholder location="classpath:database.properties"/>
+    <!--配置Druid的日志配置-->
+    <bean id="log" class="com.xyq.filter.LogFilter">
+        <property name="connectionLogEnabled" value="false"/>
+        <property name="connectionConnectBeforeLogEnabled" value="false"/>
+        <property name="connectionConnectAfterLogEnabled" value="false"/>
+        <property name="connectionCommitAfterLogEnabled" value="false"/>
+        <property name="connectionRollbackAfterLogEnabled" value="false"/>
+        <property name="connectionCloseAfterLogEnabled" value="false"/>
+        <property name="connectionLogErrorEnabled" value="false"/>
+        <property name="dataSourceLogEnabled" value="false"/>
+        <property name="statementLogEnabled" value="false"/>
+        <property name="statementLogErrorEnabled" value="false"/>
+        <property name="statementCreateAfterLogEnabled" value="false"/>
+        <property name="statementPrepareAfterLogEnabled" value="false"/>
+        <property name="statementPrepareCallAfterLogEnabled" value="false"/>
+        <property name="statementExecuteAfterLogEnabled" value="false"/>
+        <property name="statementExecuteQueryAfterLogEnabled" value="false"/>
+        <property name="statementExecuteUpdateAfterLogEnabled" value="false"/>
+        <property name="statementExecuteBatchAfterLogEnabled" value="false"/>
+        <property name="statementCloseAfterLogEnabled" value="false"/>
+        <property name="statementParameterSetLogEnabled" value="false"/>
+        <property name="statementExecutableSqlLogEnable" value="false"/>
+        <property name="statementSqlPrettyFormat" value="false"/>
+        <property name="statementParameterClearLogEnable" value="false"/>
+        <property name="resultSetLogEnabled" value="true"/>
+        <property name="resultSetLogErrorEnabled" value="false"/>
+        <property name="resultSetNextAfterLogEnabled" value="true"/>
+        <property name="resultSetOpenAfterLogEnabled" value="true"/>
+        <property name="resultSetCloseAfterLogEnabled" value="false"/>
+
+    </bean>
     <!--dataSource-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="${db.driver}"/>
@@ -26,6 +57,11 @@
         <property name="minIdle" value="${db.minPoolSize}"/>
         <property name="maxActive" value="${db.maxPoolSize}"/>
         <property name="maxWait" value="${db.maxIdleTime}"/>
+        <property name="proxyFilters">
+            <list>
+                <ref bean="log"/>
+            </list>
+        </property>
     </bean>
     <!--transactionManager-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

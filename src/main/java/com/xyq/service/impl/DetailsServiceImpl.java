@@ -1,12 +1,14 @@
 package com.xyq.service.impl;
 
 import com.xyq.dao.IDetailsDao;
+import com.xyq.dao.IResDao;
 import com.xyq.dao.ISubtypeDao;
 import com.xyq.dao.ITypeDao;
 import com.xyq.service.IDetailsService;
 import com.xyq.service.abs.AbstractService;
 import com.xyq.vo.Details;
 import com.xyq.vo.Emp;
+import com.xyq.vo.Res;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ public class DetailsServiceImpl extends AbstractService implements IDetailsServi
     private IDetailsDao detailsDao;
     @Autowired
     private ISubtypeDao subtypeDao;
+    @Autowired
+    private IResDao resDao;
 
     public Map<String, Object> addPre(int eid) throws Exception {
         if(!checkAuth(eid,25)){
@@ -55,16 +59,18 @@ public class DetailsServiceImpl extends AbstractService implements IDetailsServi
         if (!checkAuth(eid,25))
             flag = false;
         if (flag){
-            Iterator<Map.Entry<Integer, Integer>> iterator = updateMap.entrySet().iterator();
-            while(iterator.hasNext()){
-                Map.Entry<Integer, Integer> me = iterator.next();
-                Details details = new Details();
-                details.setDid(me.getKey());
-                details.setAmount(me.getValue());
-                details.setEmp(new Emp());
-                details.getEmp().setEid(eid);
-                if(!detailsDao.doUpdateAmount(details))
-                    flag=false;
+            if(!(updateMap.size()==0||updateMap==null)){
+                Iterator<Map.Entry<Integer, Integer>> iterator = updateMap.entrySet().iterator();
+                while(iterator.hasNext()){
+                    Map.Entry<Integer, Integer> me = iterator.next();
+                    Details details = new Details();
+                    details.setDid(me.getKey());
+                    details.setAmount(me.getValue());
+                    details.setEmp(new Emp());
+                    details.getEmp().setEid(eid);
+                    if(!detailsDao.doUpdateAmount(details))
+                        flag=false;
+                }
             }
             if(!(deleteIds.size()==0||deleteIds==null)){
                 List<Details> allDetails = detailsDao.findAllByPhoto(deleteIds);
@@ -135,5 +141,33 @@ public class DetailsServiceImpl extends AbstractService implements IDetailsServi
         if (!checkAuth(eid,25))
             return false;
         return detailsDao.doUpdatePrebuy(details);
+    }
+
+    public boolean addAppend(int eid, int rid) throws Exception {
+        if(!checkAuth(eid,25))
+            return false;
+        //1、判断此时数据是否存在
+        Details details = detailsDao.findByDetailsExists(eid, rid);
+        if (details==null){//没有数据
+            //2、需要取得编号的办公用品追加
+            Res res = resDao.findById(rid);
+            if(res!=null){//现在已经有相对应的商品信息
+                Details vo = new Details();
+                vo.setRes(res);
+                vo.setType(res.getType());
+                vo.setSubtype(res.getSubtype());
+                vo.setTitle(res.getTitle());
+                vo.setEmp(new Emp());
+                vo.getEmp().setEid(eid);
+                vo.setPrice(res.getPrice());
+                vo.setAmount(1);
+                vo.setPhoto(res.getPhoto());
+                vo.setRflag(res.getRflag());
+                return detailsDao.doCreate(vo);
+            }
+        }else{
+            return detailsDao.doUpdateAppendAmount(details.getDid());
+        }
+        return false;
     }
 }

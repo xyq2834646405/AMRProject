@@ -1,6 +1,7 @@
 package com.xyq.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Author xyq
@@ -12,6 +13,7 @@ public class Res implements Serializable {
     private Subtype subtype;
     private String title;
     private Double price;
+    private Date indate;
     private String photo;
     private Integer rflag;
     private Integer amount;
@@ -54,6 +56,14 @@ public class Res implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Date getIndate() {
+        return indate;
+    }
+
+    public void setIndate(Date indate) {
+        this.indate = indate;
     }
 
     public String getPhoto() {

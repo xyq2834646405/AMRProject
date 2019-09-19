@@ -122,12 +122,16 @@ public class DetailsAction extends AbstractActionAdapter {
 
     @RequestMapping("editAmount")
     public ModelAndView editAmount(String updateStr, String deleteStr, HttpServletRequest request, HttpServletResponse response){
+        System.out.println(updateStr);
+        System.out.println(deleteStr);
         if (isAuth(25,request)){
-            String[] updateResult = updateStr.split("\\|");
             Map<Integer,Integer> updateMap = new HashMap<Integer, Integer>();
-            for (int x = 0; x < updateResult.length; x++) {
-                String[] temp = updateResult[x].split(":");
-                updateMap.put(Integer.parseInt(temp[0]),Integer.parseInt(temp[1]));
+            if(!(updateStr==null||"".equals(updateStr))){
+                String[] updateResult = updateStr.split("\\|");
+                for (int x = 0; x < updateResult.length; x++) {
+                    String[] temp = updateResult[x].split(":");
+                    updateMap.put(Integer.parseInt(temp[0]),Integer.parseInt(temp[1]));
+                }
             }
             Set<Integer> deleteIds = new HashSet<Integer>();
             if(!(deleteStr==null||"".equals(deleteStr))){
@@ -185,6 +189,23 @@ public class DetailsAction extends AbstractActionAdapter {
         }
         return null;
     }
+
+
+    @RequestMapping("append")
+    public ModelAndView append(int rid, HttpServletRequest request, HttpServletResponse response){
+        if (isAuth(25,request)){
+            try {
+                print(response,detailsService.addAppend(getEid(request),rid));
+            } catch (Exception e) {
+                e.printStackTrace();
+                print(response,false);
+            }
+        }else {
+            print(response,false);
+        }
+        return null;
+    }
+
 
     public String getSaveFileDiv() {
         return "/upload/res/";

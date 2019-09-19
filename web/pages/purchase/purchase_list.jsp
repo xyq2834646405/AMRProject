@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -36,24 +38,24 @@
 									<th style="width:10%">花费总额</th>
 									<th style="width:10%">状态</th>
 								</tr>
-								<tr>
-									<td><a href="pages/purchase/purchase_show.jsp">缺少铅笔，需要采购</a></td>
-									<td>2017-08-10</td>
-									<td>￥309.2</td>
-									<td><span class="text-info">等待审核</span></td>
-								</tr>
-								<tr>
-									<td><a href="pages/purchase/purchase_show.jsp">购买看欧洲杯的电视</a></td>
-									<td>2017-08-10</td>
-									<td>￥39009.2</td>
-									<td><span class="text-danger">审核拒绝</span></td>
-								</tr>
-								<tr>
-									<td><a href="pages/purchase/purchase_show.jsp">购买笔记本电脑</a></td>
-									<td>2017-08-10</td>
-									<td>￥3909.2</td>
-									<td><span class="text-success">审核通过</span></td>
-								</tr>
+                                <c:forEach items="${allPurchases}" var="purchase">
+                                    <tr>
+                                        <td><a href="pages/purchase/detailsShow.action?pid=${purchase.pid}">${purchase.title}</a></td>
+                                        <td><fmt:formatDate value="${purchase.pubdate}" dateStyle="default" type="both"/> </td>
+                                        <td>￥${purchase.total}</td>
+                                        <td>
+                                            <c:if test="${purchase.status==0}">
+                                                <span class="text-warning">等待审核</span>
+                                            </c:if>
+                                            <c:if test="${purchase.status==1}">
+                                                <span class="text-success">审核通过</span>
+                                            </c:if>
+                                            <c:if test="${purchase.status==2}">
+                                                <span class="text-danger">审核拒绝</span>
+                                            </c:if>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
 							</table>
 						</div>
 						<!-- /.box-body -->

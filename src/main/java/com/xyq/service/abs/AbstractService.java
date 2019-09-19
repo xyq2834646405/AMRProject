@@ -29,4 +29,23 @@ public abstract class AbstractService {
         }
         return actionDao.findByIdAndDept(emp.getDept().getDid(),actid)!=null;
     }
+
+    /**
+     * 检测当前的雇员编号是否具备此权限和级别
+     * @param eid
+     * @param actid
+     * @param lid
+     * @return
+     * @throws Exception
+     */
+    public boolean checkAuth(int eid,int actid,int lid) throws Exception{
+        Emp emp = empDao.findById(eid);
+        if(emp.getAflag().equals(1)||emp.getAflag().equals(2)){
+            return true;
+        }
+        if (emp.getLevel().getLid().equals(lid)){
+            return actionDao.findByIdAndDept(emp.getDept().getDid(),actid)!=null;
+        }
+        return false;
+    }
 }
