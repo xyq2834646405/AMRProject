@@ -22,12 +22,17 @@ public abstract class AbstractService {
      * @return 如果具备有此权限则返回true,否则返回false
      * @throws Exception
      */
-    public boolean checkAuth(int eid,int actid) throws Exception{
+    public boolean checkAuth(int eid,int ... actid) throws Exception{
         Emp emp = empDao.findById(eid);
         if(emp.getAflag().equals(1)||emp.getAflag().equals(2)){
             return true;
         }
-        return actionDao.findByIdAndDept(emp.getDept().getDid(),actid)!=null;
+        for (int x:actid) {
+            if(actionDao.findByIdAndDept(emp.getDept().getDid(),x)!=null){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

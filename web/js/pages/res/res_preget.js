@@ -1,6 +1,6 @@
 $(function() {
 	$("#selectAll").on("click",function(){
-		checkboxSelectAll('rid',this.checked) ;
+		checkboxSelectAll('tkid',this.checked) ;
 	}) ;
 	// 实现整体修改操作的功能
 	$(editBtn).on("click",function(){
@@ -11,29 +11,37 @@ $(function() {
 		$("[id*=amount-]").each(function(){
 			var gid = this.id.split("-")[1] ;
 			var amount = this.value ;
-			if (amount != "0") {
-				data += gid + ":" + amount + "|" ;
-			} else {
-				delGid[foot ++] = gid ;
-			}
+			data+=gid+":"+amount+"|";
+            if (amount == "0") {
+                delGid[foot ++] = gid ;
+            }
 		}) ;
+        console.log(data);
 		// 进行ajax异步数据处理操作
-			operateAlert(true,"商品数量修改成功！","商品数量修改失败！") ;
-			for (var x = 0 ; x < delGid.length ; x ++) {
-				$("#sc-" + delGid[x]).remove() ;
-			}
+        $.post("pages/res/editTake.action",{data:data},function (result) {
+            operateAlert(result.trim()=="true","商品数量修改成功！","商品数量修改失败！") ;
+            for (var x = 0 ; x < delGid.length ; x ++) {
+                $("#res-" + delGid[x]).remove() ;
+            }
+        })
 	}) ;
 	$("#rmBtn").on("click",function(){	// 绑定用户锁定操作
 		var data = "" ;
 		$(":checked").each(function() {
-			if(this.id == "goods.gid") {	// 要删除的内容
+			if(this.id == "tkid") {	// 要删除的内容
 				data += this.value + "|" ;
 			}
 		}) ;
 		if (data != "") {
-			
+            $.post("pages/res/removeTake.action",{data:data},function (result) {
+                operateAlert(result.trim()=="true","待领商品移除成功！","待领商品移除失败！") ;
+                var temp = data.split("|") ;
+                for (var x = 0 ; x < temp.length ; x ++) {
+                    $("#res-" + temp[x]).remove() ;
+                }
+            },"text");
 		}
-		operateAlert(true,"待领商品移除成功！","待领商品移除失败！") ;
+
 	}) ;
 	$("button[id*=add-]").each(function(){
 		var gid = this.id.split("-")[1] ; // 取得商品ID数据

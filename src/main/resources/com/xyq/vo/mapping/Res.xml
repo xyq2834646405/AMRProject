@@ -40,4 +40,14 @@
     <update id="doUpdateAmount" parameterType="java.util.Map">
         update res set amount=amount+#{amount} where rid=#{rid}
     </update>
+    <!--根据rid查询多条数据-->
+    <select id="findAllByRids" parameterType="int" resultMap="ResResultMap">
+        select rid,stid,title,price,indate,photo,rflag,amount from res
+        <where>
+            rid in 
+            <foreach collection="array" open="(" close=")" separator="," item="ele">
+                #{ele}
+            </foreach>
+        </where>
+    </select>
 </mapper>

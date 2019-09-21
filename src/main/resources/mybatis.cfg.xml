@@ -19,6 +19,7 @@
         <typeAlias type="com.xyq.vo.Details" alias="Details"/>
         <typeAlias type="com.xyq.vo.Res" alias="Res"/>
         <typeAlias type="com.xyq.vo.Purchase" alias="Purchase"/>
+        <typeAlias type="com.xyq.vo.Take" alias="Take"/>
     </typeAliases>
     <!--读取mapping-->
     <mappers>
@@ -32,5 +33,6 @@
         <mapper resource="com/xyq/vo/mapping/Details.xml"/>
         <mapper resource="com/xyq/vo/mapping/Res.xml"/>
         <mapper resource="com/xyq/vo/mapping/Purchase.xml"/>
+        <mapper resource="com/xyq/vo/mapping/Take.xml"/>
     </mappers>
 </configuration>

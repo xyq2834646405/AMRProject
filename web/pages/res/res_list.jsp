@@ -49,7 +49,7 @@
                                         <td>${res.amount>0?"可领取":"不可领取"}</td>
                                         <td>${res.rflag==1?"需要归还":"不需要归还"}</td>
                                         <td>
-                                            <button id="addBut" class="btn btn-primary btn-xs">加入领取清单</button>
+                                            <button id="addBut-${res.rid}" class="btn btn-primary btn-xs">加入领取清单</button>
                                             <c:if test="${emp.dept.did==3}">
                                                 <button id="appendBut-${res.rid}" class="btn btn-warning btn-xs">追加购入</button>
                                             </c:if>

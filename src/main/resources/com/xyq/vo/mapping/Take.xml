@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TakeNS">
+    <resultMap id="TakeResultMap" type="Take">
+        <id property="tkid" column="tkid"/>
+        <result property="geid" column="geid"/>
+        <result property="beid" column="beid"/>
+        <result property="gdate" column="gdate"/>
+        <result property="rdate" column="rdate"/>
+        <result property="note" column="note"/>
+        <result property="amount" column="amount"/>
+        <result property="status" column="status"/>
+        <association property="res" column="rid" resultMap="ResNS.ResResultMap"/>
+    </resultMap>
+    <!--借-->
+    <insert id="doCreate" parameterType="Take">
+        insert into take(geid,rid,amount) values (#{geid},#{res.rid},#{amount})
+    </insert>
+    <!--根据入库编号和雇员编号查询-->
+    <select id="findByResAndEmp" parameterType="java.util.Map" resultType="int">
+        select tkid from take where geid=#{eid} and rid=#{rid} and status is null
+    </select>
+    <!--修改借的数量-->
+    <update id="doUpdateAmount" parameterType="java.util.Map">
+        update take set amount=amount+#{amount} where tkid=#{tkid}
+    </update>
+    <!--查询该雇员的待领取信息-->
+    <select id="findAllByEmpUnGet" parameterType="int" resultMap="TakeResultMap">
+        select tkid,rid,amount from take where geid=#{geid} and status is null
+    </select>
+    <!--更新数量-->
+    <update id="doUpdateAmountByEmp" parameterType="java.util.Map">
+        update take set amount=#{amount} where geid=#{geid} and tkid=#{tkid} and gdate is null
+    </update>
+    <!--删除修改为0的商品-->
+    <delete id="doRemoveByEmp" parameterType="int">
+        delete from take
+        <where>
+            tkid in
+            <foreach collection="array" open="(" close=")" separator="," item="ele">
+                #{ele}
+            </foreach>
+        </where>
+    </delete>
+    <!--修改status-->
+    <update id="doUpdateSubmit" parameterType="Take">
+        update take set status=#{status} where tkid=#{tkid}
+    </update>
+    <!--查询所有已入库的待领取商品-->
+    <select id="findAllByEmp" parameterType="java.util.Map" resultMap="TakeResultMap">
+        select tkid,geid,beid,rid,gdate,rdate,amount,status from take where geid=#{geid} and status is not null limit #{start},#{lineSize}
+    </select>
+    <!--查询所有已入库的待领取商品数量-->
+    <select id="getAllCountByEmp" parameterType="int" resultType="int">
+        select count(*) from take where geid=#{geid} and status is not null
+    </select>
+    <!--商品分页显示-->
+    <select id="findAllSplit" parameterType="java.util.Map" resultMap="TakeResultMap">
+        select tkid,geid,beid,rid,gdate,rdate,amount,status from take where status is not null
+        <if test="keyWord!=null">
+            and ${column} like #{keyWord}
+        </if>
+        limit #{start},#{lineSize}
+    </select>
+    <!--商品分页数量显示-->
+    <select id="getAllCount" parameterType="int" resultType="int">
+        select count(*) from take where status is not null
+        <if test="keyWord!=null">
+            and ${column} like #{keyWord}
+        </if>
+    </select>
+    <!--修改商品的状态-->
+    <update id="doUpdateStatus" parameterType="Take">
+        update take set gdate=#{gdate},status=#{status} where tkid=#{tkid}
+    </update>
+    <!--查找一个商品-->
+    <select id="findById" parameterType="int" resultMap="TakeResultMap">
+        select tkid,rid,amount from take where tkid=#{tkid}
+    </select>
+    <!--归还修改状态-->
+    <update id="doUpdateStrutsReturn" parameterType="java.util.Map">
+        update take
+        <set>
+            <if test="rdate!=null">
+                rdate=#{rdate},
+            </if>
+            status=#{status}
+        </set>
+        where tkid=#{tkid}
+    </update>
+</mapper>

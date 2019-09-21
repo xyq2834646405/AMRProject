@@ -50,4 +50,8 @@ public class ResDaoImpl extends AbstractDao implements IResDao {
         map.put("rid",rid);
         return getSession().update("ResNS.doUpdateAmount",map)>0;
     }
+
+    public List<Res> findAllByRids(Set<Integer> ids) throws Exception {
+        return getSession().selectList("ResNS.findAllByRids",ids.toArray());
+    }
 }

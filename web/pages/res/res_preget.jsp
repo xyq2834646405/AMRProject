@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -37,47 +38,24 @@
 									<th class="text-center" style="width:70%"><strong>商品名称</strong></th>
 									<th class="text-center" style="width:20%"><strong>购买数量</strong></th>
 								</tr>
-								<tr>
-									<td class="text-center">
-										<input type="checkbox" id="rid" name="rid" value="1">
-									</td>
-									<td class="text-center"><img src="upload/res/nophoto.png" class="img" style="width:30px;"> 记事本</a>
-									</td>
-									<td class="text-center">
-										<button class="btn btn-primary" id="sub-1">-</button>
-										<input type="text" id="amount-1" name="amount-1" class="shopcar-form-control" size="4" maxlength="4" value="20">
-										<button class="btn btn-primary" id="add-1">+</button> 
-									</td>
-								</tr>
-								<tr> 
-									<td class="text-center">
-										<input type="checkbox" id="rid" name="goods.gid" value="2">
-									</td>
-									<td class="text-center"><img src="upload/res/nophoto.png" class="img" style="width:30px;"> 铅笔</a>
-									</td>
-									<td class="text-center">
-										<button class="btn btn-primary" id="sub-2">-</button>
-										<input type="text" id="amount-2" name="amount-2" class="shopcar-form-control" size="4" maxlength="4" value="20">
-										<button class="btn btn-primary" id="add-2">+</button> 
-									</td>
-								</tr>
-								<tr> 
-									<td class="text-center">
-										<input type="checkbox" id="rid" name="goods.gid" value="2">
-									</td>
-									<td class="text-center"><img src="upload/res/nophoto.png" class="img" style="width:30px;"> 橡皮</a>
-									</td>
-									<td class="text-center">
-										<button class="btn btn-primary" id="sub-3">-</button>
-										<input type="text" id="amount-3" name="amount-3" class="shopcar-form-control" size="4" maxlength="4" value="20">
-										<button class="btn btn-primary" id="add-3">+</button> 
-									</td> 
-								</tr>
-							</table>
+                                <c:forEach items="${allRess}" var="res">
+                                    <tr id="res-${allTakes[res.rid].tkid}">
+                                        <td class="text-center">
+                                            <input type="checkbox" id="tkid" name="tkid" value="${allTakes[res.rid].tkid}">
+                                        </td>
+                                        <td class="text-center"><img src="upload/res/${res.photo}" class="img" style="width:30px;">${res.title}</td>
+                                        <td class="text-center">
+                                            <button class="btn btn-primary" id="sub-${allTakes[res.rid].tkid}">-</button>
+                                            <input type="text" id="amount-${allTakes[res.rid].tkid}" name="amount-${allTakes[res.rid].tkid}" class="shopcar-form-control" size="4" maxlength="4" value="${allTakes[res.rid].amount}">
+                                            <button class="btn btn-primary" id="add-${allTakes[res.rid].tkid}">+</button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
 							<div>
 								<button class="btn btn-info" id="editBtn">修改数量</button>
 								<button class="btn btn-danger" id="rmBtn">移出清单</button>
-								<a href="pages/res/res_preget.jsp" class="btn btn-primary" id="getBtn">领取申请</a>
+								<a href="pages/res/get.action" class="btn btn-primary" id="getBtn">领取申请</a>
 							</div>
 						</div> 
 						<!-- /.box-body -->
